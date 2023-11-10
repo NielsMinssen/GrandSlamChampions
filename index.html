@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <script src='https://d3js.org/d3.v5.min.js'></script>
+    <style>
+        body {
+            font-family: "avenir next", Arial, sans-serif;
+            margin: 0;
+        }
+
+        .chart {
+            float: left;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="chart" id='frenchOpen'></div>
+    <div class="chart" id='wimbledon'></div>
+    <div class="chart" id='australianOpen'></div>
+    <div class="chart" id='usOpen'></div>
+
+    <script>
+        function bubbleChart() {
+            const width = 300;
+            const height = 300;
+
+            const centre = { x: width / 2, y: height / 2 };
+            const forceStrength = 0.03;
+
+            let svg = null;
+            let bubbles = null;
+            let labels = null;
+            let nodes = [];
+
+            function charge(d) {
+                return Math.pow(d.radius, 2.0) * 0.01;
+            }
+
+            const simulation = d3.forceSimulation()
+                .force('charge', d3.forceManyBody().strength(charge))
+                .force('x', d3.forceX().strength(forceStrength).x(centre.x))
+                .force('y', d3.forceY().strength(forceStrength).y(centre.y))
+                .force('collision', d3.forceCollide().radius(d => d.radius + 2));
+
+            simulation.stop();
+
+            function createNodes(rawData, tournament) {
+                const filteredData = rawData.filter(d => d.TOURNAMENT === tournament);
+                const maxWins = d3.max(filteredData, d => +d.NBWINS);
+
+                const radiusScale = d3.scaleSqrt()
+                    .domain([0, maxWins])
+                    .range([0, 40]);
+
+                const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+
+                const myNodes = filteredData.map((d, i) => ({
+                    ...d,
+                    radius: radiusScale(+d.NBWINS),
+                    NBWINS: +d.NBWINS,
+                    x: Math.random() * (width - 100) + 50,
+                    y: Math.random() * (height - 100) + 50,
+                    color: colorScale(i),
+                    id: i,
+                }));
+
+                return myNodes;
+            }
+
+            let chart = function chart(selector, rawData, tournament) {
+                nodes = createNodes(rawData, tournament);
+
+                svg = d3.select(selector)
+                    .append('svg')
+                    .attr('width', width)
+                    .attr('height', height);
+
+                const elements = svg.selectAll('.bubble')
+                    .data(nodes, d => d.id)
+                    .enter()
+                    .append('g')
+                    .call(d3.drag()
+                        .on('start', dragstarted)
+                        .on('drag', dragged)
+                        .on('end', dragended));
+
+                bubbles = elements
+                    .append('circle')
+                    .attr('r', d => d.radius)
+                    .attr('fill', 'steelblue')
+                    .on('mouseover', showDetails)
+                    .on('mouseout', hideDetails);
+
+
+                images = elements
+                    .append('image')
+                    .attr('width', d => 2 * d.radius)
+                    .attr('height', d => 2 * d.radius)
+                    .attr('xlink:href', d => {
+                        const imageName = encodeURIComponent(d.WINNER);
+                        const imageUrl = `data/images/${imageName}.png`;
+
+                        // Check if the image file exists before setting the URL
+                        if (imageExists(imageUrl)) {
+                            return imageUrl;
+                        } else {
+                            // Provide a default image
+                            return 'data/images/Novak%20Djokovic.png'; // Adjust URL encoding if needed
+                        }
+                    })
+                    .on('mouseover', showDetails)
+                    .on('mouseout', hideDetails);
+
+
+                simulation.nodes(nodes)
+                    .on('tick', ticked)
+                    .restart();
+            }
+
+            function ticked() {
+                bubbles
+                    .attr('cx', d => d.x)
+                    .attr('cy', d => d.y);
+                images
+                    .attr('x', d => d.x - d.radius)
+                    .attr('y', d => d.y - d.radius);
+
+            }
+
+            function showDetails(d) {
+                const tooltip = d3.select("#tooltip");
+                tooltip.transition().duration(200).style("opacity", .9);
+                tooltip.html(`Winner: ${d.WINNER}<br>Tournament: ${d.TOURNAMENT}<br>Wins: ${d.NBWINS}`)
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
+            }
+
+            function hideDetails() {
+                const tooltip = d3.select("#tooltip");
+                tooltip.transition().duration(500).style("opacity", 0);
+            }
+
+            function dragstarted(d) {
+                if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+                d.fx = d.x;
+                d.fy = d.y;
+            }
+
+            function dragged(d) {
+                d.fx = d3.event.x;
+                d.fy = d3.event.y;
+            }
+
+            function dragended(d) {
+                if (!d3.event.active) simulation.alphaTarget(0);
+                d.fx = null;
+                d.fy = null;
+            }
+
+            return chart;
+        }
+
+        // Create separate instances for each tournament
+        let frenchOpenChart = bubbleChart();
+        let wimbledonChart = bubbleChart();
+        let australianOpenChart = bubbleChart();
+        let usOpenChart = bubbleChart();
+
+        function display(data) {
+            frenchOpenChart('#frenchOpen', data, 'French Open');
+            wimbledonChart('#wimbledon', data, 'Wimbledon');
+            australianOpenChart('#australianOpen', data, 'Australian Open');
+            usOpenChart('#usOpen', data, 'U.S. Open');
+        }
+
+        function imageExists(url) {
+            const http = new XMLHttpRequest();
+            http.open('HEAD', url, false);
+            http.send();
+            return http.status !== 404;
+        }
+
+        d3.csv('winner_by_tournaments.csv').then(display);
+
+        // Add a tooltip element
+        d3.select("body").append("div")
+            .attr("id", "tooltip")
+            .style("opacity", 0);
+
+    </script>
+</body>
+
+</html>
