@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const height = 500;
 
         const centre = { x: width / 2, y: height / 2 };
-        const forceStrength = 0.03;
+        const forceStrength = 0.01;
 
         let svg = null;
         let bubbles = null;
@@ -61,7 +61,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 .attr('height', height);
 
 
-
             const elements = svg.selectAll('.bubble')
                 .data(nodes, d => d.id)
                 .enter()
@@ -81,145 +80,157 @@ document.addEventListener('DOMContentLoaded', function () {
                 .on('mouseout', hideDetails);
 
 
-            images = elements
-                .append('image')
-                .attr('width', d => 2 * d.radius)
-                .attr('height', d => 2 * d.radius)
-                .attr('xlink:href', d => {
-                    const imageName = encodeURIComponent(d.WINNER);
-                    const imageUrl = `data/images/${imageName}.png`;
+        images = elements
+            .append('image')
+            .attr('width', d => 2 * d.radius)
+            .attr('height', d => 2 * d.radius)
+            .attr('xlink:href', d => {
+                const imageName = encodeURIComponent(d.WINNER);
+                const imageUrl = `data/images/${imageName}.png`;
 
-                    // Check if the image file exists before setting the URL
-                    if (imageExists(imageUrl)) {
-                        return imageUrl;
-                    } else {
-                        // Provide a default image
-                        return 'data/images/Novak%20Djokovic.png'; // Adjust URL encoding if needed
-                    }
-                })
-                .attr('class', 'image') // Apply the class
-                .on('mouseover', showDetails)
-                .on('mouseout', hideDetails);
-
-
-            simulation.nodes(nodes)
-                .on('tick', ticked)
-                .alpha(1)
-                .restart();
-        }
-
-        function ticked() {
-            bubbles
-                .attr('cx', d => d.x)
-                .attr('cy', d => d.y);
-            images
-                .attr('x', d => d.x - d.radius)
-                .attr('y', d => d.y - d.radius);
-
-        }
-
-        function showDetails(d) {
-            const tooltip = d3.select("#tooltip");
-            tooltip.transition().duration(200).style("opacity", .9);
-            tooltip.html(`Winner: ${d.WINNER}<br>Tournament: ${d.TOURNAMENT}<br>Wins: ${d.NBWINS}`)
-                .style("left", (d3.event.pageX + 10) + "px")  // Adjust position right from the mouse
-                .style("top", (d3.event.pageY - 10) + "px");  // Adjust position above the mouse
-        }
+                // Check if the image file exists before setting the URL
+                if (imageExists(imageUrl)) {
+                    return imageUrl;
+                } else {
+                    // Provide a default image
+                    return 'data/images/Novak%20Djokovic.png'; // Adjust URL encoding if needed
+                }
+            })
+            .on('mouseover', showDetails)
+            .on('mouseout', hideDetails);
 
 
-
-        function hideDetails() {
-            const tooltip = d3.select("#tooltip");
-            tooltip.transition().duration(500).style("opacity", 0);
-        }
-
-        function dragstarted(d) {
-            if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-            d.fx = d.x;
-            d.fy = d.y;
-        }
-
-        function dragged(d) {
-            d.fx = d3.event.x;
-            d.fy = d3.event.y;
-        }
-
-        function dragended(d) {
-            if (!d3.event.active) simulation.alphaTarget(0);
-            d.fx = null;
-            d.fy = null;
-        }
-
-        return chart;
+        simulation.nodes(nodes)
+            .on('tick', ticked)
+            .alpha(1)
+            .restart();
     }
+
+    function ticked() {
+        bubbles
+            .attr('cx', d => d.x)
+            .attr('cy', d => d.y)
+
+        images
+            .attr('x', d => d.x - d.radius)
+            .attr('y', d => d.y - d.radius)
+    }
+
+    function showDetails(d) {
+        const tooltip = d3.select("#tooltip");
+        tooltip.transition().duration(200).style("opacity", .9);
+        tooltip.html(`Winner: ${d.WINNER}<br>Tournament: ${d.TOURNAMENT}<br>Wins: ${d.NBWINS}`)
+            .style("left", (d3.event.pageX + 10) + "px")  // Adjust position right from the mouse
+            .style("top", (d3.event.pageY - 10) + "px");  // Adjust position above the mouse
+    }
+
+
+
+    function hideDetails() {
+        const tooltip = d3.select("#tooltip");
+        tooltip.transition().duration(500).style("opacity", 0);
+    }
+
+    function dragstarted(d) {
+        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+    }
+
+    function dragged(d) {
+        d.fx = d3.event.x;
+        d.fy = d3.event.y;
+    }
+
+    function dragended(d) {
+        if (!d3.event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+    }
+
+    return chart;
+}
 
     // Create separate instances for each tournament
     let frenchOpenChart = bubbleChart();
-    let wimbledonChart = bubbleChart();
-    let australianOpenChart = bubbleChart();
-    let usOpenChart = bubbleChart();
+let wimbledonChart = bubbleChart();
+let australianOpenChart = bubbleChart();
+let usOpenChart = bubbleChart();
 
-   
-    let allData;
-    d3.csv('winner_by_tournaments.csv').then(data => {
-        allData = data; // Store the data
-        // Optionally initialize a default chart view
-        updateChart('French Open');
-    });
-    
 
-    function imageExists(url) {
-        const http = new XMLHttpRequest();
-        http.open('HEAD', url, false);
-        http.send();
-        return http.status !== 404;
+let allData;
+d3.csv('winner_by_tournaments.csv').then(data => {
+    allData = data; // Store the data
+    // Optionally initialize a default chart view
+    updateChart('French Open');
+});
+
+
+function imageExists(url) {
+    const http = new XMLHttpRequest();
+    http.open('HEAD', url, false);
+    http.send();
+    return http.status !== 404;
+}
+
+// Add a tooltip element
+d3.select("body").append("div")
+    .attr("id", "tooltip")
+    .style("opacity", 0);
+
+
+
+function updateChart(tournament) {
+    // Logic to update the chart based on the tournament
+    // You can switch between different datasets or views here
+    switch (tournament) {
+        case 'French Open':
+            frenchOpenChart('#chart', allData, 'French Open');
+            break;
+        case 'Wimbledon':
+            wimbledonChart('#chart', allData, 'Wimbledon');
+            break;
+        case 'Australian Open':
+            australianOpenChart('#chart', allData, 'Australian Open');
+            break;
+        case 'U.S. Open':
+            usOpenChart('#chart', allData, 'U.S. Open');
+            break;
+        // Additional cases as needed
     }
+}
 
-    // Add a tooltip element
-    d3.select("body").append("div")
-        .attr("id", "tooltip")
-        .style("opacity", 0);
-
-
-
-    function updateChart(tournament) {
-        // Logic to update the chart based on the tournament
-        // You can switch between different datasets or views here
-        switch(tournament) {
-            case 'French Open':
-                frenchOpenChart('#chart', allData, 'French Open');
-                break;
-            case 'Wimbledon':
-                wimbledonChart('#chart', allData, 'Wimbledon');
-                break;
-            case 'Australian Open':
-                australianOpenChart('#chart', allData, 'Australian Open');
-                break;
-            case 'U.S. Open':
-                usOpenChart('#chart', allData, 'U.S. Open');
-                break;
-            // Additional cases as needed
-        }
-    }
-        
 let chart
-    const scroller = scrollama();
+const scroller = scrollama();
 
-    scroller
-        .setup({
-            step: '.text-section .step',  // select all steps
-            offset: 0.5,  // trigger the step at middle of the viewport
-            // other options
-        })
-        .onStepEnter(response => {
-            // response.element is the current step
-            const tournament = response.element.getAttribute('data-tournament');
-            updateChart(tournament);
-        });
+scroller
+  .setup({
+    step: '.text-section .step', // select all steps
+    offset: 0.5, // trigger the step at middle of the viewport
+    // other options...
+  })
+  .onStepEnter(response => {
+    // Get the tournament attribute of the current step
+    const tournament = response.element.getAttribute('data-tournament');
     
+    // Fade out any graph that might currently be displayed
+    d3.select('#chart')
+      .transition()
+      .duration(500)
+      .style('opacity', 0)
+      .on('end', () => {
+        // Once the fade out is complete, update the chart with new data and fade it in
+        updateChart(tournament);
+        d3.select('#chart')
+          .transition()
+          .duration(1500)
+          .style('opacity', 1);
+      });
+  });
 
-    // Resize handler
-    window.addEventListener('resize', scroller.resize);
+
+// Resize handler
+window.addEventListener('resize', scroller.resize);
 });
 
 
