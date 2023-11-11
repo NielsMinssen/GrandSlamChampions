@@ -1,6 +1,9 @@
 body {
     font-family: "avenir next", Arial, sans-serif;
     margin: 0;
+    background-attachment: fixed;
+    
+
 }
 
 .chart {
@@ -19,8 +22,10 @@ body {
     stroke: black;
     stroke-width: 3px;
 }
+
 .step {
-    height: 100vh; /* Example height, adjust as necessary */
+    min-height: 512px;
+    /* Example height, adjust as necessary */
     /* Other styles */
 }
 
@@ -30,8 +35,11 @@ body {
 }
 
 .text-section {
+    padding-top: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
     flex: 1;
-    /* Additional styling */
+    color: white;
 }
 
 .chart-section {
@@ -41,8 +49,19 @@ body {
 
 .chart-section {
     position: sticky;
-    top: 0; /* Adjust this value based on your layout, header size, etc. */
-    height: 100vh; /* Full viewport height */
+    top: 0;
+    /* Adjust this value based on your layout, header size, etc. */
+    height: 70vh;
+    /* Full viewport height */
     /* Additional styling as needed */
 }
 
+h1 {
+    text-align: center;
+    /* Centers the title on the page */
+    margin-top: 30px;
+    /* Adds space above the title */
+    font-size: 36px;
+    /* Sets the size of the title */
+    /* Additional styles */
+}

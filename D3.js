@@ -212,6 +212,11 @@ scroller
   .onStepEnter(response => {
     // Get the tournament attribute of the current step
     const tournament = response.element.getAttribute('data-tournament');
+    const newBackgroundImage = response.element.getAttribute('data-background');
+
+    // Fade out the body background
+    document.body.style.transition = 'background-image 0.5s ease-in-out';
+    document.body.style.backgroundImage = `url('${newBackgroundImage}')`;
     
     // Fade out any graph that might currently be displayed
     d3.select('#chart')
