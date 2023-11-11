@@ -19,3 +19,30 @@ body {
     stroke: black;
     stroke-width: 3px;
 }
+.step {
+    height: 100vh; /* Example height, adjust as necessary */
+    /* Other styles */
+}
+
+.container {
+    display: flex;
+    align-items: start;
+}
+
+.text-section {
+    flex: 1;
+    /* Additional styling */
+}
+
+.chart-section {
+    flex: 1;
+    /* Additional styling */
+}
+
+.chart-section {
+    position: sticky;
+    top: 0; /* Adjust this value based on your layout, header size, etc. */
+    height: 100vh; /* Full viewport height */
+    /* Additional styling as needed */
+}
+

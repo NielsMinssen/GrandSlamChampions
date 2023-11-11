@@ -5,15 +5,26 @@
     <meta charset="utf-8">
     <title>Grand Slams winners</title>
     <script src='https://d3js.org/d3.v5.min.js'></script>
+    <script src="https://unpkg.com/scrollama"></script>
     <script src="D3.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="chart" id='frenchOpen'></div>
-    <div class="chart" id='wimbledon'></div>
-    <div class="chart" id='australianOpen'></div>
-    <div class="chart" id='usOpen'></div>
+    <div class="container">
+        <div class="text-section">
+            <!-- Scrolling text content here -->
+            <div class="step" data-tournament="French Open">Rooolllllaaannnnddd gaarrrooss</div>
+            <div class="step" data-tournament="Wimbledon">wwwwwwwwwwwwwwwwwwwwwwwww</div>
+            <div class="step" data-tournament="U.S. Open">uuuuuuuuuuuuuuuuuuuuu</div>
+            <div class="step" data-tournament="Australian Open">aaaaaaaaaaaaaaaaaaaaa</div>
+            <!-- more steps -->
+        </div>
+        <div class="chart-section">
+            <!-- Charts will be displayed here -->
+            <div id="chart"></div>
+        </div>
+    </div>
 
 </body>
 
