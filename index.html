@@ -11,7 +11,8 @@
         }
 
         .chart {
-            float: left;
+            display: inline-block;
+            vertical-align: middle;
             margin-right: 20px;
         }
     </style>
@@ -25,8 +26,8 @@
 
     <script>
         function bubbleChart() {
-            const width = 300;
-            const height = 300;
+            const width = 350;
+            const height = 350;
 
             const centre = { x: width / 2, y: height / 2 };
             const forceStrength = 0.03;
@@ -34,6 +35,7 @@
             let svg = null;
             let bubbles = null;
             let labels = null;
+            let images = null;
             let nodes = [];
 
             function charge(d) {
@@ -65,7 +67,7 @@
                     x: Math.random() * (width - 100) + 50,
                     y: Math.random() * (height - 100) + 50,
                     color: colorScale(i),
-                    id: i,
+                    id: `${tournament}-${i}`,  // Concatenate tournament name with existing id
                 }));
 
                 return myNodes;
