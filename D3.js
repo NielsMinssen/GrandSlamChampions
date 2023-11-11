@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     function bubbleChart() {
-        const width = 500;
-        const height = 500;
+        const width = 600;
+        const height = 600;
 
         const centre = { x: width / 2, y: height / 2 };
         const forceStrength = 0.01;
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const radiusScale = d3.scaleSqrt()
                 .domain([0, maxWins])
-                .range([0, 40]);
+                .range([0, 60]);
 
             const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
@@ -223,7 +223,7 @@ scroller
         updateChart(tournament);
         d3.select('#chart')
           .transition()
-          .duration(1500)
+          .duration(1000)
           .style('opacity', 1);
       });
   });
