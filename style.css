@@ -1,0 +1,21 @@
+body {
+    font-family: "avenir next", Arial, sans-serif;
+    margin: 0;
+}
+
+.chart {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 20px;
+}
+
+#tooltip {
+    position: absolute;
+    pointer-events: none;
+    /* Other styling properties */
+}
+
+.g:hover {
+    stroke: black;
+    stroke-width: 3px;
+}
