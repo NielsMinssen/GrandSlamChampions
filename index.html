@@ -15,6 +15,17 @@
             vertical-align: middle;
             margin-right: 20px;
         }
+
+        #tooltip {
+            position: absolute;
+            pointer-events: none;
+            /* Other styling properties */
+        }
+
+        .g:hover {
+            stroke: black;
+            stroke-width: 3px;
+        }
     </style>
 </head>
 
@@ -85,6 +96,7 @@
                     .data(nodes, d => d.id)
                     .enter()
                     .append('g')
+                    .attr('class', 'g') // Apply the class
                     .call(d3.drag()
                         .on('start', dragstarted)
                         .on('drag', dragged)
@@ -94,6 +106,7 @@
                     .append('circle')
                     .attr('r', d => d.radius)
                     .attr('fill', 'white')
+                    .attr('class', 'bubble') // Apply the class
                     .on('mouseover', showDetails)
                     .on('mouseout', hideDetails);
 
@@ -114,6 +127,7 @@
                             return 'data/images/Novak%20Djokovic.png'; // Adjust URL encoding if needed
                         }
                     })
+                    .attr('class', 'image') // Apply the class
                     .on('mouseover', showDetails)
                     .on('mouseout', hideDetails);
 
@@ -137,9 +151,11 @@
                 const tooltip = d3.select("#tooltip");
                 tooltip.transition().duration(200).style("opacity", .9);
                 tooltip.html(`Winner: ${d.WINNER}<br>Tournament: ${d.TOURNAMENT}<br>Wins: ${d.NBWINS}`)
-                    .style("left", (d3.event.pageX) + "px")
-                    .style("top", (d3.event.pageY - 28) + "px");
+                    .style("left", (d3.event.pageX + 10) + "px")  // Adjust position right from the mouse
+                    .style("top", (d3.event.pageY - 10) + "px");  // Adjust position above the mouse
             }
+
+
 
             function hideDetails() {
                 const tooltip = d3.select("#tooltip");
