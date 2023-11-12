@@ -56,10 +56,11 @@ body {
 }
 
 .text-section a {
-    color: black; /* This ensures that the link is also black */
+    color: black;
+    /* This ensures that the link is also black */
     color: rgb(255, 255, 255);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-  }
+}
 
 .header {
     color: rgb(255, 255, 255);
