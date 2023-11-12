@@ -18,7 +18,9 @@ body {
     position: absolute;
     pointer-events: none;
     color: rgb(255, 255, 255);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.7);
+    width: 200px;
+    text-align: center;
     /* Other styling properties */
 }
 
@@ -49,6 +51,7 @@ body {
     color: rgb(255, 255, 255);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
     max-width: 35%; /* Adjust the max-width as needed */
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .header {

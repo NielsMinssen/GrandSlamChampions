@@ -128,9 +128,12 @@ document.addEventListener('DOMContentLoaded', function () {
         tooltip.transition().duration(200).style("opacity", .9);
         tooltip.html(`
             <img src="./data/images/${d.WINNER}.png" alt="Image de ${d.WINNER}" style="width:${tooltipWidth}px; height:auto;">
-            <div>
+            <div class='tooltip'>
                 ${d.WINNER}<br>
-                Nombre de victoires: ${d.NBWINS}
+               ${d.WINNER_NATIONALITY}<br>
+               ${d.WINNER_LEFT_OR_RIGHT_HANDED}<br>
+                Nombre de victoire(s): ${d.NBWINS}<br>
+                Année(s) de vivtoire(s) ${d.YEARS_WON}
             </div>
         `)
         .style("right", "30px") // Position 10px from the right edge of the screen
