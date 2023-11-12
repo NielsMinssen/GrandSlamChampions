@@ -186,7 +186,7 @@ let usOpenChart = bubbleChart();
 
 
 let allData;
-d3.csv('winner_by_tournaments.csv').then(data => {
+d3.csv('data/tennis/winner_by_tournaments.csv').then(data => {
     allData = data; // Store the data
 });
 
