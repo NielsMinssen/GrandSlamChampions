@@ -118,11 +118,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function showDetails(d) {
         const tooltip = d3.select("#tooltip");
+        const scrollY = window.scrollY;
+        const windowHeight = window.innerHeight;
+        const tooltipWidth = 200; // Set the width of the tooltip image
+    
+        // Calculate the top position so that the tooltip is centered in the viewport
+        const topPosition = scrollY + (windowHeight / 2);
+    
         tooltip.transition().duration(200).style("opacity", .9);
-        tooltip.html(`Winner: ${d.WINNER}<br>Tournament: ${d.TOURNAMENT}<br>Wins: ${d.NBWINS}`)
-            .style("left", (d3.event.pageX + 10) + "px")  // Adjust position right from the mouse
-            .style("top", (d3.event.pageY - 10) + "px");  // Adjust position above the mouse
+        tooltip.html(`
+            <img src="./data/images/${d.WINNER}.png" alt="Image de ${d.WINNER}" style="width:${tooltipWidth}px; height:auto;">
+            <div>
+                ${d.WINNER}<br>
+                Nombre de victoires: ${d.NBWINS}
+            </div>
+        `)
+        .style("right", "30px") // Position 10px from the right edge of the screen
+        .style("top", `${topPosition}px`) // Center based on the current scroll position
+        .style("transform", "translateY(-50%)"); // Center the tooltip vertically relative to its height
     }
+    
 
 
 
@@ -204,7 +219,7 @@ const scroller = scrollama();
 scroller
   .setup({
     step: '.step', // select all steps
-    offset: 0.5, // trigger the step at middle of the viewport
+    offset: 0.4, // trigger the step at middle of the viewport
     // other options...
   })
   .onStepEnter(response => {
