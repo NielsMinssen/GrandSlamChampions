@@ -1,4 +1,13 @@
+
 document.addEventListener('DOMContentLoaded', function () {
+
+    lottie.loadAnimation({
+        container: document.getElementById('down-arrow'), // ID de l'élément conteneur
+        renderer: 'svg', // Peut être 'canvas', 'html'
+        loop: true, // Boucle de l'animation
+        autoplay: true, // Lecture automatique
+        path: './data/lottie/down-arrow.json' // Chemin du fichier JSON de l'animation
+      });
 
     function bubbleChart() {
         const width = 700;
@@ -255,5 +264,5 @@ scroller
 // Resize handler
 window.addEventListener('resize', scroller.resize);
 });
-
+  
 
