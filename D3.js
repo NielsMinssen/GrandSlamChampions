@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     function bubbleChart() {
-        const width = 600;
+        const width = 700;
         const height = 600;
 
         const centre = { x: width / 2, y: height / 2 };
@@ -161,8 +161,6 @@ let usOpenChart = bubbleChart();
 let allData;
 d3.csv('winner_by_tournaments.csv').then(data => {
     allData = data; // Store the data
-    // Optionally initialize a default chart view
-    updateChart('French Open');
 });
 
 
@@ -205,7 +203,7 @@ const scroller = scrollama();
 
 scroller
   .setup({
-    step: '.text-section .step', // select all steps
+    step: '.step', // select all steps
     offset: 0.5, // trigger the step at middle of the viewport
     // other options...
   })
@@ -214,19 +212,23 @@ scroller
     const tournament = response.element.getAttribute('data-tournament');
     const newBackgroundImage = response.element.getAttribute('data-background');
 
-    document.body.style.backgroundImage = `url('${newBackgroundImage}')`;
+    if (tournament == 'French Open' && response.direction === 'down') {
+        
+    } else{
+        document.body.style.backgroundImage = `url('${newBackgroundImage}')`;
+    }
     
     // Fade out any graph that might currently be displayed
     d3.select('#chart')
       .transition()
-      .duration(500)
+      .duration(750)
       .style('opacity', 0)
       .on('end', () => {
         // Once the fade out is complete, update the chart with new data and fade it in
         updateChart(tournament);
         d3.select('#chart')
           .transition()
-          .duration(1000)
+          .duration(750)
           .style('opacity', 1);
       });
   });
