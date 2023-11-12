@@ -35,7 +35,8 @@ body {
     /* Other styles */
     display: flex;
     flex-direction: column;
-    justify-content: center; /* This centers the .text-container vertically */
+    justify-content: center;
+    /* This centers the .text-container vertically */
 }
 
 .container {
@@ -46,13 +47,19 @@ body {
 
 .text-section {
     padding: 30px;
-    margin-bottom: 30px;
     flex: 1;
     color: rgb(255, 255, 255);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    max-width: 35%; /* Adjust the max-width as needed */
+    max-width: 35%;
+    /* Adjust the max-width as needed */
     background-color: rgba(0, 0, 0, 0.5);
 }
+
+.text-section a {
+    color: black; /* This ensures that the link is also black */
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  }
 
 .header {
     color: rgb(255, 255, 255);
@@ -60,16 +67,17 @@ body {
     text-align: center;
     width: 100%;
     display: flex;
-    justify-content: center; /* This will center the child elements */
+    justify-content: center;
+    /* This will center the child elements */
     flex-direction: column;
-    
+
 }
 
-.header-text{
+.header-text {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.box-arrow{
+.box-arrow {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -109,12 +117,14 @@ h1 {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    min-height: 100vh; /* This will ensure that the div takes up at least the full viewport height */
+    min-height: 100vh;
+    /* This will ensure that the div takes up at least the full viewport height */
     display: flex;
-    justify-content: center; /* This will center the child elements */
+    justify-content: center;
+    /* This will center the child elements */
 }
 
 #down-arrow {
     width: 300px;
-    height: 300px;  }
-    
+    height: 300px;
+}

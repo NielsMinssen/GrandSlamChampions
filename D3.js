@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const radiusScale = d3.scaleSqrt()
                 .domain([0, maxWins])
-                .range([0, 60]);
+                .range([10, 60]);
 
             const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
