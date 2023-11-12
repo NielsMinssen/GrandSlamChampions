@@ -55,10 +55,27 @@ body {
 }
 
 .header {
-    padding: 20px;
-    flex: 1;
     color: rgb(255, 255, 255);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center; /* This will center the child elements */
+    flex-direction: column;
+    
+}
+
+.header-text{
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.box-arrow{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    margin-top: 50px;
 }
 
 .chart-section {
@@ -79,7 +96,7 @@ body {
 h1 {
     text-align: center;
     /* Centers the title on the page */
-    margin-top: 30px;
+    margin-top: 15px;
     /* Adds space above the title */
     font-size: 36px;
     /* Sets the size of the title */
@@ -93,4 +110,11 @@ h1 {
     background-position: center;
     background-repeat: no-repeat;
     min-height: 100vh; /* This will ensure that the div takes up at least the full viewport height */
+    display: flex;
+    justify-content: center; /* This will center the child elements */
 }
+
+#down-arrow {
+    width: 300px;
+    height: 300px;  }
+    
