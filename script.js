@@ -296,12 +296,14 @@ function stopBubbleChartLoadingAnimation() {
                 .style('opacity', 0)
                 .on('end', async () => {
                     // Once the fade out is complete, update the chart with new data and fade it in
-                    await updateChart(tournament);
-                    stopBubbleChartLoadingAnimation();
-                    d3.select('#chart')
-                        .transition()
-                        .duration(750)
-                        .style('opacity', 1);
+                    await updateChart(tournament).then(() => {
+                        stopBubbleChartLoadingAnimation();
+                        // Une fois la mise à jour terminée, affichez le graphique
+                        d3.select('#chart')
+                            .transition()
+                            .duration(750)
+                            .style('opacity', 1);
+                    });
                 });
         });
 
