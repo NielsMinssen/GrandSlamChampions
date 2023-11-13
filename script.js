@@ -62,8 +62,8 @@ document.addEventListener('DOMContentLoaded', function () {
             // Create a new SVG
             svg = d3.select(selector)
                 .append('svg')
-                .attr('width', width)
-                .attr('height', height);
+                .attr("viewBox", `0 0 700 600`)
+                .attr('class','svg')
 
             const elements = svg.selectAll('.bubble')
                 .data(nodes, d => d.id)
