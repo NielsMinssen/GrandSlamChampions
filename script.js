@@ -239,34 +239,18 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Define a variable to hold the animation instance
-    let bubbleChartLoadingAnimation;
-
-    // Function to start the Lottie animation for the bubble chart
-    function startBubbleChartLoadingAnimation() {
-        // Make the container visible
-        document.getElementById('tennis-bounce').style.display = 'block';
-        // Only start the animation if it's not already running
-        if (!bubbleChartLoadingAnimation) {
-            bubbleChartLoadingAnimation = lottie.loadAnimation({
-                container: document.getElementById('tennis-bounce'), // The container element
-                renderer: 'svg',
-                loop: true,
-                autoplay: true,
-                path: './data/lottie/tennis-bounce.json' // The path to the animation JSON
-            });
-        }
-    }
-
-    // Function to stop the Lottie animation for the bubble chart
-    function stopBubbleChartLoadingAnimation() {
-        if (bubbleChartLoadingAnimation) {
-            bubbleChartLoadingAnimation.stop();
-            document.getElementById('tennis-bounce').style.display = 'none';
-            bubbleChartLoadingAnimation.destroy(); // Optional: this frees up resources and allows you to start it again later
-            bubbleChartLoadingAnimation = null; // Clear the variable so you can start it again if needed
-        }
-    }
+// Fonction pour démarrer le spinner
+function startSpinner() {
+    // Ajoute le spinner à la page avec 'display: block'
+    document.getElementById('loader').style.display = 'block';
+  }
+  
+  // Fonction pour arrêter le spinner
+  function stopSpinner() {
+    // Enlève le spinner de la page avec 'display: none'
+    document.getElementById('loader').style.display = 'none';
+  }
+  
 
     let chart
     const scroller = scrollama();
@@ -278,7 +262,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // other options...
         })
         .onStepEnter(response => {
-            startBubbleChartLoadingAnimation();
+            startSpinner();
             // Get the tournament attribute of the current step
             const tournament = response.element.getAttribute('data-tournament');
             const newBackgroundImage = response.element.getAttribute('data-background');
@@ -299,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Utilisez setTimeout pour différer la mise à jour du graphique
                     requestAnimationFrame(() => {
                         updateChart(tournament).then(() => {
-                            stopBubbleChartLoadingAnimation();
+                            stopSpinner();
                             // Affichez le graphique
                             d3.select('#chart')
                                 .transition()
