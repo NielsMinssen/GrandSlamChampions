@@ -153,6 +153,11 @@ h1 {
         min-width: 30vw;
         font-size: 30px;
     }
+
+    #tooltip {
+        left: 60%;
+        transform: translateY(+150%) !important;
+        }
     
 }
   
