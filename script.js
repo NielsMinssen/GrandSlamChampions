@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-    function updateChart(tournament) {
+    async function updateChart(tournament) {
         // Logic to update the chart based on the tournament
         // You can switch between different datasets or views here
         switch (tournament) {
@@ -277,7 +277,7 @@ function stopBubbleChartLoadingAnimation() {
             offset: 0.4, // trigger the step at middle of the viewport
             // other options...
         })
-        .onStepEnter(response => {
+        .onStepEnter( response => {
             startBubbleChartLoadingAnimation();
             // Get the tournament attribute of the current step
             const tournament = response.element.getAttribute('data-tournament');
@@ -294,9 +294,9 @@ function stopBubbleChartLoadingAnimation() {
                 .transition()
                 .duration(750)
                 .style('opacity', 0)
-                .on('end', () => {
+                .on('end', async () => {
                     // Once the fade out is complete, update the chart with new data and fade it in
-                    updateChart(tournament);
+                    await updateChart(tournament);
                     stopBubbleChartLoadingAnimation();
                     d3.select('#chart')
                         .transition()
