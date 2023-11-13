@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
             svg = d3.select(selector)
                 .append('svg')
                 .attr("viewBox", `0 0 700 600`)
-                .attr('class','svg')
+                .attr('class', 'svg')
 
             const elements = svg.selectAll('.bubble')
                 .data(nodes, d => d.id)
@@ -162,10 +162,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     Année(s) de vivtoire(s) ${d.YEARS_WON}
                 </div>
             `)
-            .style("right", "30px") // Position 10px from the right edge of the screen
-            .style("top", `${topPosition}px`) // Center based on the current scroll position
-            .style("transform", "translateY(-50%)"); // Center the tooltip vertically relative to its height
-        }   
+                .style("right", "30px") // Position 10px from the right edge of the screen
+                .style("top", `${topPosition}px`) // Center based on the current scroll position
+                .style("transform", "translateY(-50%)"); // Center the tooltip vertically relative to its height
+        }
 
         function hideDetails() {
             const tooltip = d3.select("#tooltip");
@@ -240,33 +240,33 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Define a variable to hold the animation instance
-let bubbleChartLoadingAnimation;
+    let bubbleChartLoadingAnimation;
 
-// Function to start the Lottie animation for the bubble chart
-function startBubbleChartLoadingAnimation() {
-    // Make the container visible
-  document.getElementById('tennis-bounce').style.display = 'block';
-  // Only start the animation if it's not already running
-  if (!bubbleChartLoadingAnimation) {
-    bubbleChartLoadingAnimation = lottie.loadAnimation({
-      container: document.getElementById('tennis-bounce'), // The container element
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      path: './data/lottie/tennis-bounce.json' // The path to the animation JSON
-    });
-  }
-}
+    // Function to start the Lottie animation for the bubble chart
+    function startBubbleChartLoadingAnimation() {
+        // Make the container visible
+        document.getElementById('tennis-bounce').style.display = 'block';
+        // Only start the animation if it's not already running
+        if (!bubbleChartLoadingAnimation) {
+            bubbleChartLoadingAnimation = lottie.loadAnimation({
+                container: document.getElementById('tennis-bounce'), // The container element
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                path: './data/lottie/tennis-bounce.json' // The path to the animation JSON
+            });
+        }
+    }
 
-// Function to stop the Lottie animation for the bubble chart
-function stopBubbleChartLoadingAnimation() {
-  if (bubbleChartLoadingAnimation) {
-    bubbleChartLoadingAnimation.stop();
-    document.getElementById('tennis-bounce').style.display = 'none';
-    bubbleChartLoadingAnimation.destroy(); // Optional: this frees up resources and allows you to start it again later
-    bubbleChartLoadingAnimation = null; // Clear the variable so you can start it again if needed
-  }
-}
+    // Function to stop the Lottie animation for the bubble chart
+    function stopBubbleChartLoadingAnimation() {
+        if (bubbleChartLoadingAnimation) {
+            bubbleChartLoadingAnimation.stop();
+            document.getElementById('tennis-bounce').style.display = 'none';
+            bubbleChartLoadingAnimation.destroy(); // Optional: this frees up resources and allows you to start it again later
+            bubbleChartLoadingAnimation = null; // Clear the variable so you can start it again if needed
+        }
+    }
 
     let chart
     const scroller = scrollama();
@@ -277,7 +277,7 @@ function stopBubbleChartLoadingAnimation() {
             offset: 0.4, // trigger the step at middle of the viewport
             // other options...
         })
-        .onStepEnter( response => {
+        .onStepEnter(response => {
             startBubbleChartLoadingAnimation();
             // Get the tournament attribute of the current step
             const tournament = response.element.getAttribute('data-tournament');
@@ -294,15 +294,18 @@ function stopBubbleChartLoadingAnimation() {
                 .transition()
                 .duration(750)
                 .style('opacity', 0)
-                .on('end', async () => {
+                .on('end', () => {
                     // Once the fade out is complete, update the chart with new data and fade it in
-                    await updateChart(tournament).then(() => {
-                        stopBubbleChartLoadingAnimation();
-                        // Une fois la mise à jour terminée, affichez le graphique
-                        d3.select('#chart')
-                            .transition()
-                            .duration(750)
-                            .style('opacity', 1);
+                    // Utilisez setTimeout pour différer la mise à jour du graphique
+                    requestAnimationFrame(() => {
+                        updateChart(tournament).then(() => {
+                            stopBubbleChartLoadingAnimation();
+                            // Affichez le graphique
+                            d3.select('#chart')
+                                .transition()
+                                .duration(750)
+                                .style('opacity', 1);
+                        });
                     });
                 });
         });
