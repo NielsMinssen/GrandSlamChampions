@@ -136,9 +136,23 @@ h1 {
     height: 90vh;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1000px) {
 
+    .svg {
+        width: 35vh;
+        transform: translateY(+10%);
+    }
 
+    .step{
+        min-height: 100vh;
+    }
+
+    .text-section {
+        padding: 5px;
+        max-width: 35%;
+        min-width: 30vw;
+        font-size: 30px;
+    }
     
 }
   
