@@ -76,13 +76,22 @@ body {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.box-arrow {
+.box-arrow1 {
     display: flex;
     justify-content: center;
     flex-direction: column;
     text-align: center;
     align-items: center;
     margin-top: 50px;
+}
+.box-arrow2 {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    margin-top: 50px;
+    bottom: 10vh;
 }
 
 .chart-section {
@@ -123,11 +132,25 @@ h1 {
     /* This will center the child elements */
 }
 
-#down-arrow {
+#down-arrow1 {
     width: 300px;
     height: 300px;
 }
 
+#down-arrow2 {
+    width: 300px;
+    height: 300px;
+}
+
+#down-arrow3 {
+    width: 300px;
+    height: 300px;
+}
+
+#down-arrow4 {
+    width: 300px;
+    height: 300px;
+}
 .chart{
     transform: translateY(+100%);
 }

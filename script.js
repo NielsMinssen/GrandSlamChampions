@@ -1,7 +1,31 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     lottie.loadAnimation({
-        container: document.getElementById('down-arrow'), // ID de l'élément conteneur
+        container: document.getElementById('down-arrow1'), // ID de l'élément conteneur
+        renderer: 'svg', // Peut être 'canvas', 'html'
+        loop: true, // Boucle de l'animation
+        autoplay: true, // Lecture automatique
+        path: './data/lottie/down-arrow.json' // Chemin du fichier JSON de l'animation
+    });
+
+    lottie.loadAnimation({
+        container: document.getElementById('down-arrow2'), // ID de l'élément conteneur
+        renderer: 'svg', // Peut être 'canvas', 'html'
+        loop: true, // Boucle de l'animation
+        autoplay: true, // Lecture automatique
+        path: './data/lottie/down-arrow.json' // Chemin du fichier JSON de l'animation
+    });
+
+    lottie.loadAnimation({
+        container: document.getElementById('down-arrow3'), // ID de l'élément conteneur
+        renderer: 'svg', // Peut être 'canvas', 'html'
+        loop: true, // Boucle de l'animation
+        autoplay: true, // Lecture automatique
+        path: './data/lottie/down-arrow.json' // Chemin du fichier JSON de l'animation
+    });
+
+    lottie.loadAnimation({
+        container: document.getElementById('down-arrow4'), // ID de l'élément conteneur
         renderer: 'svg', // Peut être 'canvas', 'html'
         loop: true, // Boucle de l'animation
         autoplay: true, // Lecture automatique
