@@ -194,7 +194,9 @@ h1 {
     height: 48px;
     border-radius: 50%;
     position: relative;
-    animation: rotate 1s linear infinite
+    animation: rotate 1s linear infinite;
+    margin-top: 100%;
+    margin-left: 30%;
   }
   .loader::before , .loader::after {
     content: "";
