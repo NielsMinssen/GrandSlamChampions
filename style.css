@@ -121,7 +121,7 @@ h1 {
 
 .first-step {
     background-image: url('./data/images/Grand Slams.png');
-    background-attachment: fixed;
+    background-attachment: scroll;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -168,7 +168,7 @@ h1 {
 @media only screen and (max-width: 1000px) {
 
     .svg {
-        width: 35vh;
+        width: 30vh;
         transform: translateY(+10%);
     }
 
