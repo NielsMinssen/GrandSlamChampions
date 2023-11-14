@@ -51,6 +51,7 @@ body {
     max-width: 35%;
     /* Adjust the max-width as needed */
     background-color: rgba(0, 0, 0, 0.5);
+    font-size: 28px;
 }
 
 .text-section a {
@@ -69,6 +70,7 @@ body {
     justify-content: center;
     /* This will center the child elements */
     flex-direction: column;
+    font-size: 26px;
 
 }
 
@@ -114,7 +116,7 @@ h1 {
     /* Centers the title on the page */
     margin-top: 15px;
     /* Adds space above the title */
-    font-size: 36px;
+    font-size: 40px;
     /* Sets the size of the title */
     /* Additional styles */
 }
@@ -165,30 +167,6 @@ h1 {
     height: 90vh;
 }
 
-@media only screen and (max-width: 1000px) {
-
-    .svg {
-        width: 30vh;
-        transform: translateY(+10%);
-    }
-
-    .step{
-        min-height: 100vh;
-    }
-
-    .text-section {
-        padding: 5px;
-        max-width: 35%;
-        min-width: 30vw;
-        font-size: 30px;
-    }
-
-    #tooltip {
-        left: 60%;
-        transform: translateY(+150%) !important;
-        }
-    
-}
 .loader {
     width: 48px;
     height: 48px;
@@ -225,3 +203,35 @@ h1 {
       75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
       100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
   }
+
+  @media only screen and (max-width: 1000px) {
+
+    .svg {
+        width: 30vh;
+        transform: translateY(+10%);
+    }
+
+    .step{
+        min-height: 100vh;
+    }
+
+    .text-section {
+        padding: 5px;
+        max-width: 35%;
+        min-width: 30vw;
+        font-size: 30px;
+    }
+
+    #tooltip {
+        left: 60%;
+        transform: translateY(+150%) !important;
+        }
+
+        #loader{
+            width: 200px;
+            height: 200px;
+            margin-top: 150%;
+            margin-left: 30%;
+        }
+    
+}
