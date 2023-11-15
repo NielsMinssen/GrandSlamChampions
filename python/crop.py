@@ -3,7 +3,7 @@ from PIL import Image, ImageDraw
 import os
 
 # Specify the directory you want to loop through
-folder_path = './data/images'
+folder_path = './data/images/atp'
 
 # Loop through the files in the specified directory
 for filename in os.listdir(folder_path):

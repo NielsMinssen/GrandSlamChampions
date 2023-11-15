@@ -12,4 +12,4 @@ def optimize_png_images(directory_path):
     return f"Optimized {len(png_files)} PNG images."
 
 #Use the function like this:
-optimize_png_images('./data/images')
+optimize_png_images('./data/images/atp')
