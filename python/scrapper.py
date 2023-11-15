@@ -24,7 +24,7 @@ tournament_mapping = {
     '580': ('Grand Slam', 'Australian Open'),
     '520': ('Grand Slam', 'French Open'),
     '540': ('Grand Slam', 'Wimbledon'),
-    '352': ('Grand Slam', 'US Open'),
+    '560': ('Grand Slam', 'US Open'),
     '404': ('Masters 1000', 'Indian Wells Masters'),
     '403': ('Masters 1000', 'Miami Open'),
     '410': ('Masters 1000', 'Monte-Carlo Masters'),
@@ -33,7 +33,7 @@ tournament_mapping = {
     '421': ('Masters 1000', 'Canadian Open'),
     '422': ('Masters 1000', 'Cincinnati Masters'),
     '5014': ('Masters 1000', 'Shanghai Masters'),
-    'paris': ('Masters 1000', 'Paris Masters'),
+    '352': ('Masters 1000', 'Paris Masters'),
 }
 
 # Directory to save player images

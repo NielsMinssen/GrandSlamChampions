@@ -2,7 +2,7 @@ body {
     font-family: "avenir next", Arial, sans-serif;
     margin: 0;
     background-attachment: fixed;
-    background-image: url('./data/images/Rolland\ Garros.png');
+    background-image: url('./data/images/backgrounds/Rolland_Garros.png');
     background-size: cover;
     transition: background-image 0.5s ease-in-out;
 
@@ -122,7 +122,7 @@ h1 {
 }
 
 .first-step {
-    background-image: url('./data/images/Grand Slams.png');
+    background-image: url('./data/images/backgrounds/Grand_Slams.png');
     background-attachment: scroll;
     background-size: cover;
     background-position: center;

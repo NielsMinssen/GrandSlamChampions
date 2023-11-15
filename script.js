@@ -112,15 +112,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 .attr('width', d => 2 * d.radius)
                 .attr('height', d => 2 * d.radius)
                 .attr('xlink:href', d => {
-                    const imageName = encodeURIComponent(d.WINNER);
-                    const imageUrl = `data/images/${imageName}.png`;
+                    const imageName = d.WINNER.replace(" ", "_");
+                    const imageUrl = `data/images/atp/${imageName}.png`;
 
                     // Check if the image file exists before setting the URL
                     if (imageExists(imageUrl)) {
                         return imageUrl;
                     } else {
                         // Provide a default image
-                        return 'data/images/Novak%20Djokovic.png'; // Adjust URL encoding if needed
+                        return 'data/images/atp/Default.png'; // Adjust URL encoding if needed
                     }
                 })
                 .on('mouseover', showDetails)
@@ -153,11 +153,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
             tooltip.transition().duration(200).style("opacity", .9);
             tooltip.html(`
-                <img src="./data/images/${d.WINNER}.png" alt="Image de ${d.WINNER}" style="width:${tooltipWidth}px; height:auto;">
+                <img src="./data/images/atp/${d.WINNER.replace(" ", "_")}.png" alt="Image de ${d.WINNER}" style="width:${tooltipWidth}px; height:auto;">
                 <div class='tooltip'>
                     ${d.WINNER}<br>
-                    ${d.WINNER_NATIONALITY}<br>
-                    ${d.WINNER_LEFT_OR_RIGHT_HANDED}<br>
+                    ${d.NATIONALITY}<br>
+                    ${d.AGE}<br>
+                    ${d.HEIGHT}<br>
                     Nombre de victoire(s): ${d.NBWINS}<br>
                     Année(s) de vivtoire(s) ${d.YEARS_WON}
                 </div>
@@ -197,10 +198,18 @@ document.addEventListener('DOMContentLoaded', function () {
     let wimbledonChart = bubbleChart();
     let australianOpenChart = bubbleChart();
     let usOpenChart = bubbleChart();
-
+    let IndianWellsMasters = bubbleChart();
+    let MiamiOpen = bubbleChart();
+    let MonteCarloMasters = bubbleChart();
+    let MadridOpen = bubbleChart();
+    let ItalianOpen = bubbleChart();
+    let CanadianOpen = bubbleChart();
+    let CincinatiMasters = bubbleChart();
+    let ShangaiMasters = bubbleChart();
+    let ParisMasters = bubbleChart();
 
     let allData;
-    d3.csv('data/tennis/winner_by_tournaments.csv').then(data => {
+    d3.csv('data/tennis/scrap_results_aggregated.csv').then(data => {
         allData = data; // Store the data
     });
 
@@ -232,25 +241,51 @@ document.addEventListener('DOMContentLoaded', function () {
             case 'Australian Open':
                 australianOpenChart('#chart', allData, 'Australian Open');
                 break;
-            case 'U.S. Open':
-                usOpenChart('#chart', allData, 'U.S. Open');
+            case 'US Open':
+                usOpenChart('#chart', allData, 'US Open');
                 break;
-            // Additional cases as needed
+            case 'Indian Wells Masters':
+                usOpenChart('#chart', allData, 'Indian Wells Masters');
+                break;
+            case 'Miami Open':
+                usOpenChart('#chart', allData, 'Miami Open');
+                break;
+            case 'Monte-Carlo Masters':
+                usOpenChart('#chart', allData, 'Monte-Carlo Masters');
+                break;
+            case 'Madrid Open':
+                usOpenChart('#chart', allData, 'Madrid Open');
+                break;
+            case 'Italian Open':
+                usOpenChart('#chart', allData, 'Italian Open');
+                break;
+            case 'Canadian Open':
+                usOpenChart('#chart', allData, 'Canadian Open');
+                break;
+            case 'Cincinnati Masters':
+                usOpenChart('#chart', allData, 'Cincinnati Masters');
+                break;
+            case 'Shanghai Masters':
+                usOpenChart('#chart', allData, 'Shanghai Masters');
+                break;
+            case 'Paris Masters':
+                usOpenChart('#chart', allData, 'Paris Masters');
+                break;
         }
     }
 
-// Fonction pour démarrer le spinner
-function startSpinner() {
-    // Ajoute le spinner à la page avec 'display: block'
-    document.getElementById('loader').style.display = 'block';
-  }
-  
-  // Fonction pour arrêter le spinner
-  function stopSpinner() {
-    // Enlève le spinner de la page avec 'display: none'
-    document.getElementById('loader').style.display = 'none';
-  }
-  
+    // Fonction pour démarrer le spinner
+    function startSpinner() {
+        // Ajoute le spinner à la page avec 'display: block'
+        document.getElementById('loader').style.display = 'block';
+    }
+
+    // Fonction pour arrêter le spinner
+    function stopSpinner() {
+        // Enlève le spinner de la page avec 'display: none'
+        document.getElementById('loader').style.display = 'none';
+    }
+
 
     let chart
     const scroller = scrollama();
