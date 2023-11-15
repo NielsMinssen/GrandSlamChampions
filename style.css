@@ -134,18 +134,6 @@ h1 {
     /* This will center the child elements */
 }
 
-.step-masters {
-    background-image: url('./data/images/backgrounds/Masters1000.png');
-    background-attachment: scroll;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    /* This will ensure that the div takes up at least the full viewport height */
-    display: flex;
-    justify-content: center;
-    /* This will center the child elements */
-}
 
 #down-arrow1 {
     width: 300px;
