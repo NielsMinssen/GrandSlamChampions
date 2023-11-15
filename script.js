@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .attr('width', d => 2 * d.radius)
                 .attr('height', d => 2 * d.radius)
                 .attr('xlink:href', d => {
-                    const imageName = d.WINNER.replace(" ", "_");
+                    const imageName = d.WINNER.replace(/ /g, "_");
                     const imageUrl = `data/images/atp/${imageName}.png`;
 
                     // Check if the image file exists before setting the URL
