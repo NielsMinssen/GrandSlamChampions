@@ -3,14 +3,14 @@ name: Weekly Python Scrapper
 on:
   schedule:
     # Runs at 00:00 every Sunday
-    - cron: '51 11 * * *'
+    - cron: '18 12 * * *'
 
 jobs:
   run-script:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -44,9 +44,5 @@ jobs:
         run: |
           git config --global user.name 'NielsMinssen'
           git config --global user.email 'niels.minssen@gmail.com'
-          git add -A
-          git commit -m 'Automated script update' --allow-empty
-          git -c http.extraheader="AUTHORIZATION: bearer ${{ secrets.GRANDSLAMS }}" push --set-upstream origin HEAD:main
-
-
-
+          git commit -m 'Automated script update'
+          git push
