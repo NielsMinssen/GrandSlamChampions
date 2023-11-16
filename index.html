@@ -15,12 +15,29 @@
 
 <body>
     <div class="first-step" data-background="./data/images/backgrounds/Grand_Slams.png">
-        <div class="menu-icon" onclick="window.toggleMenu()"></div>
+        <div class="menu-container">
+            <div class="menu-icon" onclick="window.toggleMenu()"></div>
+            <span class="menu-label">Menu</span>
+          </div>
+          
         <div id="menu">
           <span class="closebtn" onclick="window.toggleMenu()">&times;</span>
           <ul>
-            <li><a href="javascript:void(0)" onclick="window.scrollToTournament('French Open')">French Open</a></li>
-            <li><a href="javascript:void(0)" onclick="window.scrollToTournament('Wimbledon')">Wimbledon</a></li>
+            <li class="menu-heading">Grand Chelems</li>
+            <li><a href="javascript:void(0)" class="grand-slam" onclick="window.scrollToTournament('French Open')">Rolland Garros</a></li>
+            <li><a href="javascript:void(0)" class="grand-slam" onclick="window.scrollToTournament('Wimbledon')">Wimbledon</a></li>
+            <li><a href="javascript:void(0)" class="grand-slam" onclick="window.scrollToTournament('Australian Open')">Australian Open</a></li>
+            <li><a href="javascript:void(0)" class="grand-slam" onclick="window.scrollToTournament('US Open')">US Open</a></li>
+            <li class="menu-heading">Masters 1000</li>
+            <li><a href="javascript:void(0)" class="masters" onclick="window.scrollToTournament('Indian Wells Masters')">Indian Wells Masters</a></li>
+            <li><a href="javascript:void(0)" class="masters" onclick="window.scrollToTournament('Miami Open')">Miami Open</a></li>
+            <li><a href="javascript:void(0)" class="masters" onclick="window.scrollToTournament('Monte-Carlo Masters')">Monte-Carlo Masters</a></li>
+            <li><a href="javascript:void(0)" class="masters" onclick="window.scrollToTournament('Madrid Open')">Madrid Open</a></li>
+            <li><a href="javascript:void(0)" class="masters" onclick="window.scrollToTournament('Italian Open')">Italian Open</a></li>
+            <li><a href="javascript:void(0)" class="masters" onclick="window.scrollToTournament('Canadian Open')">Canadian Open</a></li>
+            <li><a href="javascript:void(0)" class="masters" onclick="window.scrollToTournament('Cincinnati Masters')">Cincinnati Masters</a></li>
+            <li><a href="javascript:void(0)" class="masters" onclick="window.scrollToTournament('Shanghai Masters')">Shanghai Masters</a></li>
+            <li><a href="javascript:void(0)" class="masters" onclick="window.scrollToTournament('Paris Masters')">Paris Masters</a></li>
             <!-- Add more tournament links here -->
           </ul>
         </div>
