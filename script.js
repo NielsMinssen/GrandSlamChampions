@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             tooltip.transition().duration(200).style("opacity", .9);
             tooltip.html(`
-                <img src="./data/images/atp/${d.WINNER.replace(" ", "_")}.png" alt="Image de ${d.WINNER}" style="width:${tooltipWidth}px; height:auto;">
+                <img src="./data/images/atp/${d.WINNER.replace(/ /g, "_")}.png" alt="Image de ${d.WINNER}" style="width:${tooltipWidth}px; height:auto;">
                 <div class='tooltip'>
                     ${d.WINNER}<br>
                     ${d.NATIONALITY}<br>
