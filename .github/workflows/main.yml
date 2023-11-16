@@ -3,7 +3,7 @@ name: Weekly Python Scrapper
 on:
   schedule:
     # Runs at 00:00 every Sunday
-    - cron: '45 08 * * *'
+    - cron: '36 09 * * *'
 
 jobs:
   run-script:
@@ -33,3 +33,18 @@ jobs:
 
       - name: Run the script 4
         run: python python/optimise.py # Replace with the path to your script
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          git add -A
+          git diff --staged --exit-code || echo "::set-output name=changes_detected::true"
+
+      - name: Commit and push if changes
+        if: steps.git-check.outputs.changes_detected == 'true'
+        run: |
+          git config --global user.name 'NielsMinssen'
+          git config --global user.email 'niels.minssen@gmail.com'
+          git commit -m 'Automated script update'
+          git push
+
