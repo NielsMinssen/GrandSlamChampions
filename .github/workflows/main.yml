@@ -3,7 +3,7 @@ name: Weekly Python Scrapper
 on:
   schedule:
     # Runs at 00:00 every Sunday
-    - cron: '05 16 * * *'
+    - cron: '11 08 * * *'
 
 jobs:
   run-script:
