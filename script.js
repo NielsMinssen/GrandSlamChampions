@@ -352,6 +352,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
         });
 
+        document.getElementById('scrollToTopBtn').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0, // Scroll to the top of the page
+                behavior: 'smooth' // Smooth scrolling
+            });
+        });
+        
+
     // Resize handler
     window.addEventListener('resize', scroller.resize);
 });

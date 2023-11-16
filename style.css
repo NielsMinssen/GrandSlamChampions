@@ -219,15 +219,6 @@ h1 {
     height: 300px;
 }
 
-#down-arrow3 {
-    width: 300px;
-    height: 300px;
-}
-
-#down-arrow4 {
-    width: 300px;
-    height: 300px;
-}
 .chart{
     transform: translateY(+100%);
 }
@@ -278,6 +269,29 @@ h1 {
       75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
       100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
   }
+
+  #scrollToTopBtn {
+    position: fixed;  /* Fixed position */
+    bottom: 20px;     /* Place it 20px up from the bottom */
+    right: 20px;      /* Place it 20px from the right */
+    z-index: 1001;    /* Ensure it's above other content */
+    cursor: pointer;  /* Change mouse pointer on hover */
+    padding: 10px;    /* Add some padding */
+    border: none;     /* No border */
+    outline: none;    /* Remove outline */
+    background-color: #333; /* A dark background */
+    color: white;     /* White text color */
+    border-radius: 50%; /* Make it round */
+}
+
+#scrollToTopBtn:hover {
+    background-color: #555; /* Slightly lighter on hover */
+}
+
+#scrollToTopBtn i {
+    font-size: 20px; /* Size of the icon */
+}
+
 
   @media only screen and (max-width: 1000px) {
 
