@@ -3,7 +3,7 @@ name: Weekly Python Scrapper
 on:
   schedule:
     # Runs at 00:00 every Sunday
-    - cron: '12 10 * * *'
+    - cron: '51 11 * * *'
 
 jobs:
   run-script:
@@ -43,11 +43,10 @@ jobs:
       - name: Commit and push if changes
         run: |
           git config --global user.name 'NielsMinssen'
-          git config --global user.email 'niels.minssen@gmail.com' # Replace with your GitHub email
+          git config --global user.email 'niels.minssen@gmail.com'
           git add -A
           git commit -m 'Automated script update' --allow-empty
-          git push --set-upstream origin HEAD:main # Replace 'main' with your branch name if different
-        env:
-          GITHUB_TOKEN: ${{ secrets.GRANDSLAMS }} # Replace with the name of your PAT secret
+          git -c http.extraheader="AUTHORIZATION: bearer ${{ secrets.GRANDSLAMS }}" push --set-upstream origin HEAD:main
+
 
 
