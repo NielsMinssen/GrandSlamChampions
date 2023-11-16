@@ -1,5 +1,28 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+    var menu = document.getElementById('menu');
+    menu.style.left = '-100%';
+
+    // This function toggles the menu's visibility
+    window.toggleMenu = function () {
+        var menu = document.getElementById('menu');
+        menu.style.left = (menu.style.left === '0px' || menu.style.left === '') ? '-100%' : '0px';
+    }
+
+    // Function to scroll to the tournament section
+    window.scrollToTournament = function (tournamentName) {
+        var steps = document.querySelectorAll('.step');
+
+        for (var i = 0; i < steps.length; i++) {
+            if (steps[i].getAttribute('data-tournament') === tournamentName) {
+                steps[i].scrollIntoView({ behavior: 'smooth' });
+                // Close the menu after scrolling
+                toggleMenu();
+                break;
+            }
+        }
+    }
+
     lottie.loadAnimation({
         container: document.getElementById('down-arrow1'), // ID de l'élément conteneur
         renderer: 'svg', // Peut être 'canvas', 'html'

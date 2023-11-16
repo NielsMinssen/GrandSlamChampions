@@ -9,12 +9,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"
         integrity="sha512-jEnuDt6jfecCjthQAJ+ed0MTVA++5ZKmlUcmDGBv2vUI/REn6FuIdixLNnQT+vKusE2hhTk2is3cFvv5wA+Sgg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <div class="first-step" data-background="./data/images/backgrounds/Grand_Slams.png">
+        <div class="menu-icon" onclick="window.toggleMenu()"></div>
+        <div id="menu">
+          <span class="closebtn" onclick="window.toggleMenu()">&times;</span>
+          <ul>
+            <li><a href="javascript:void(0)" onclick="window.scrollToTournament('French Open')">French Open</a></li>
+            <li><a href="javascript:void(0)" onclick="window.scrollToTournament('Wimbledon')">Wimbledon</a></li>
+            <!-- Add more tournament links here -->
+          </ul>
+        </div>
         <div class="header">
             <div class="header-text">
                 <h1>Scrollytelling tournois du Grand chelem</h1>
