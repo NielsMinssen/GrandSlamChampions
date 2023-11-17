@@ -93,7 +93,7 @@ body {
     pointer-events: none;
     color: rgb(255, 255, 255);
     text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.7);
-    width: 200px;
+    max-width: 200px;
     text-align: center;
     /* Other styling properties */
 }
@@ -297,8 +297,11 @@ h1 {
 
     .svg {
         width: 30vh;
-        height: 80vh;
-        
+        height: 80vh; 
+    }
+
+    .chart-section{
+        top:0;
     }
 
     .step{
@@ -313,8 +316,10 @@ h1 {
     }
 
     #tooltip {
-        left: 60%;
-        transform: translateY(+150%) !important;
+        left: 55%;
+        transform: translateY(+100%) !important;
+        max-width: 300px;
+        overflow: visible;
         }
 
         #loader{

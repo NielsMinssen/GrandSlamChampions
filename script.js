@@ -176,7 +176,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const tooltip = d3.select("#tooltip");
             const scrollY = window.scrollY;
             const windowHeight = window.innerHeight;
-            const tooltipWidth = 200; // Set the width of the tooltip image
+            var tooltipWidth = 200; // Set the width of the tooltip image
+
+            if (window.innerWidth < 1000) {
+                tooltipWidth=300;
+            }
 
             // Calculate the top position so that the tooltip is centered in the viewport
             const topPosition = scrollY + (windowHeight / 2);
