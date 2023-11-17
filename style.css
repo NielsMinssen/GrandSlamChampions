@@ -321,6 +321,7 @@ h1 {
         transform: translateY(+65%) !important;
         max-width: 300px;
         font-size: 28px;
+        z-index: -1;
         }
 
         #loader{
