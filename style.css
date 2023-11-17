@@ -328,20 +328,22 @@ h1 {
             left: 0px;
             margin: 10px;
             cursor: pointer;
+            width: 40%;
           }
           
           
           .menu-label {
             display: flex;
-            font-size: 30px; /* Adjust as needed */
+            font-size: 60px; /* Adjust as needed */
             color: #333; /* Adjust as needed */
             align-items: center;
+            width: 40%;
             
           }
         .menu-icon {
             display: flex;
-            width: 30px;
-            height: 30px;
+            width: 60%;
+            height: 10vh;
             background-image: url('./data/images/backgrounds/menu-icon.png'); /* Path to your menu icon image */
             background-size: cover;
             align-items: center;
