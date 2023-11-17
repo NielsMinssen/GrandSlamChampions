@@ -293,7 +293,7 @@ h1 {
 }
 
 
-  @media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1000px) {
 
     .svg {
         width: 30vh;
@@ -348,5 +348,15 @@ h1 {
             background-size: cover;
             align-items: center;
           }
+
+        .header{
+            display: flex;
+            align-items: center;
+            height: 80vh;
+        }
+
+        .header-text{
+            font-size: 40px;
+        }
     
 }
