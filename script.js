@@ -56,8 +56,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function bubbleChart() {
-        const width = 700;
-        const height = 600;
+        var width = 900;
+        var height = 700;
+        var maxRange =60;
+
+        if (window.innerWidth < 1000) {
+            width = 273;
+            height = 675;
+            maxRange = 40;
+        }
 
         const centre = { x: width / 2, y: height / 2 };
         const forceStrength = 0.01;
@@ -85,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const maxWins = d3.max(filteredData, d => +d.NBWINS);
             const radiusScale = d3.scaleSqrt()
                 .domain([0, maxWins])
-                .range([10, 60]);
+                .range([10, maxRange]);
             const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
             const myNodes = filteredData.map((d, i) => ({
                 ...d,
@@ -109,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Create a new SVG
             svg = d3.select(selector)
                 .append('svg')
-                .attr("viewBox", `0 0 700 600`)
+                .attr("viewBox", `0 0 ${width} ${height}`)
                 .attr('class', 'svg')
 
             const elements = svg.selectAll('.bubble')

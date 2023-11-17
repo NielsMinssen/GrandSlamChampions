@@ -297,7 +297,8 @@ h1 {
 
     .svg {
         width: 30vh;
-        transform: translateY(+10%);
+        height: 80vh;
+        
     }
 
     .step{
