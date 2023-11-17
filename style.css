@@ -298,6 +298,7 @@ h1 {
     .svg {
         width: 30vh;
         height: 80vh; 
+        overflow: visible;
     }
 
     .chart-section{
@@ -317,9 +318,9 @@ h1 {
 
     #tooltip {
         left: 55%;
-        transform: translateY(+100%) !important;
+        transform: translateY(+65%) !important;
         max-width: 300px;
-        overflow: visible;
+        font-size: 28px;
         }
 
         #loader{
