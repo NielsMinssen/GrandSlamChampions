@@ -276,11 +276,11 @@ function getSelectedOptions(sel) {
 
 $(document).ready(function() {
     $('#yearFilter').select2({
-        placeholder: "Select Years",
+        placeholder: "Toutes",
         allowClear: true
     });
     $('#winnerFilter').select2({
-        placeholder: "Select Winners",
+        placeholder: "Tous",
         allowClear: true
     });
 });
