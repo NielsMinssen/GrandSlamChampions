@@ -18,46 +18,62 @@
 <body>
     <div class="first-step" data-background="./data/images/backgrounds/Grand_Slams.png">
         <div class="menu-container" onclick="window.toggleMenu()"">
-            <div class="menu-icon"></div>
-            <span class="menu-label">Menu</span>
-          </div>
-          
-        <div id="menu">
-          <span class="closebtn" onclick="window.toggleMenu()">&times;</span>
-          <ul>
+            <div class=" menu-icon"></div>
+        <span class="menu-label">Menu</span>
+    </div>
+
+    <div id="menu">
+        <span class="closebtn" onclick="window.toggleMenu()">&times;</span>
+        <ul>
             <li class="menu-heading">Grand Chelems</li>
-            <li><a href="javascript:void(0)" class="grand-slam" onclick="window.scrollToTournament('French Open')">Rolland Garros</a></li>
-            <li><a href="javascript:void(0)" class="grand-slam" onclick="window.scrollToTournament('Wimbledon')">Wimbledon</a></li>
-            <li><a href="javascript:void(0)" class="grand-slam" onclick="window.scrollToTournament('Australian Open')">Australian Open</a></li>
-            <li><a href="javascript:void(0)" class="grand-slam" onclick="window.scrollToTournament('US Open')">US Open</a></li>
+            <li><a href="javascript:void(0)" class="grand-slam"
+                    onclick="window.scrollToTournament('French Open')">Rolland Garros</a></li>
+            <li><a href="javascript:void(0)" class="grand-slam"
+                    onclick="window.scrollToTournament('Wimbledon')">Wimbledon</a></li>
+            <li><a href="javascript:void(0)" class="grand-slam"
+                    onclick="window.scrollToTournament('Australian Open')">Australian Open</a></li>
+            <li><a href="javascript:void(0)" class="grand-slam" onclick="window.scrollToTournament('US Open')">US
+                    Open</a></li>
             <li class="menu-heading">Masters 1000</li>
-            <li><a href="javascript:void(0)" class="masters" onclick="window.scrollToTournament('Indian Wells Masters')">Indian Wells Masters</a></li>
-            <li><a href="javascript:void(0)" class="masters" onclick="window.scrollToTournament('Miami Open')">Miami Open</a></li>
-            <li><a href="javascript:void(0)" class="masters" onclick="window.scrollToTournament('Monte-Carlo Masters')">Monte-Carlo Masters</a></li>
-            <li><a href="javascript:void(0)" class="masters" onclick="window.scrollToTournament('Madrid Open')">Madrid Open</a></li>
-            <li><a href="javascript:void(0)" class="masters" onclick="window.scrollToTournament('Italian Open')">Italian Open</a></li>
-            <li><a href="javascript:void(0)" class="masters" onclick="window.scrollToTournament('Canadian Open')">Canadian Open</a></li>
-            <li><a href="javascript:void(0)" class="masters" onclick="window.scrollToTournament('Cincinnati Masters')">Cincinnati Masters</a></li>
-            <li><a href="javascript:void(0)" class="masters" onclick="window.scrollToTournament('Shanghai Masters')">Shanghai Masters</a></li>
-            <li><a href="javascript:void(0)" class="masters" onclick="window.scrollToTournament('Paris Masters')">Paris Masters</a></li>
+            <li><a href="javascript:void(0)" class="masters"
+                    onclick="window.scrollToTournament('Indian Wells Masters')">Indian Wells Masters</a></li>
+            <li><a href="javascript:void(0)" class="masters" onclick="window.scrollToTournament('Miami Open')">Miami
+                    Open</a></li>
+            <li><a href="javascript:void(0)" class="masters"
+                    onclick="window.scrollToTournament('Monte-Carlo Masters')">Monte-Carlo Masters</a></li>
+            <li><a href="javascript:void(0)" class="masters" onclick="window.scrollToTournament('Madrid Open')">Madrid
+                    Open</a></li>
+            <li><a href="javascript:void(0)" class="masters" onclick="window.scrollToTournament('Italian Open')">Italian
+                    Open</a></li>
+            <li><a href="javascript:void(0)" class="masters"
+                    onclick="window.scrollToTournament('Canadian Open')">Canadian Open</a></li>
+            <li><a href="javascript:void(0)" class="masters"
+                    onclick="window.scrollToTournament('Cincinnati Masters')">Cincinnati Masters</a></li>
+            <li><a href="javascript:void(0)" class="masters"
+                    onclick="window.scrollToTournament('Shanghai Masters')">Shanghai Masters</a></li>
+            <li><a href="javascript:void(0)" class="masters" onclick="window.scrollToTournament('Paris Masters')">Paris
+                    Masters</a></li>
+            <li class="menu-heading">Masters</li>
+            <li><a href="javascript:void(0)" class="masters" onclick="window.scrollToTournament('ATP Finals')">ATP
+                    Finals</a></li>
             <!-- Add more tournament links here -->
-          </ul>
+        </ul>
+    </div>
+    <div class="header">
+        <div class="header-text">
+            <h1>Scrollytelling tournois du Grand chelem / Masters 1000</h1>
+            <p> Ce site retrace l'histoire du tennis à travers de joueurs qui ont réussi l'exploit de gagner un<br>
+                tournoi du Grand Chelem ou un Masters 1000. Ces Tournois sont les plus prestigieux du monde du<br>
+                tennis et en gagner ne serait-ce qu'un seul vous permet de rentrer dans la légende.<br>
+            </p>
         </div>
-        <div class="header">
-            <div class="header-text">
-                <h1>Scrollytelling tournois du Grand chelem / Masters 1000</h1>
-                <p> Ce site retrace l'histoire du tennis à travers de joueurs qui ont réussi l'exploit de gagner un<br>
-                    tournoi du Grand Chelem ou un Masters 1000. Ces Tournois sont les plus prestigieux du monde du<br>
-                    tennis et en gagner ne serait-ce qu'un seul vous permet de rentrer dans la légende.<br>
-                </p>
+        <div class="box-arrow1">
+            <div>
+                <h2>Scrollez pour plonger dans l'histoire du tennis !</h2>
             </div>
-            <div class="box-arrow1">
-                <div>
-                    <h2>Scrollez pour plonger dans l'histoire du tennis !</h2>
-                </div>
-                <div id="down-arrow1"></div>
-            </div>
+            <div id="down-arrow1"></div>
         </div>
+    </div>
     </div>
     <div class="container">
         <div class="text-section">
@@ -181,6 +197,16 @@
                 l'enchantement propre à la ville, rendant chaque match grandiose.
             </div>
 
+            <div class="step" data-tournament="ATP Finals" data-background="./data/images/backgrounds/ATP_Finals.png">
+                <h2>ATP Finals</h2>
+                Les ATP Finals couronnent la fin de la saison de tennis en rassemblant l'élite des joueurs du circuit
+                professionnel. Ce tournoi prestigieux, qui se déroule dans une ambiance intérieure électrique, est le
+                théâtre d'affrontements époustouflants où seuls les meilleurs s'affirment. Avec des jeux de lumière
+                dynamiques et une atmosphère de haute technologie, les ATP Finals ne sont pas seulement un test
+                d'habileté et de persévérance, mais aussi une célébration du tennis dans sa forme la plus pure et la
+                plus intense.
+            </div>
+
 
             <p>&copy; 2023 Coded with &hearts; by <a href="https://nielsminssen.github.io" target="_blank"
                     rel="noopener noreferrer" aria-label="Visit Your Name's website">Niels Minssen</a></p>
@@ -196,7 +222,7 @@
     <button id="scrollToTopBtn" title="Scroll to top">
         <i class="fas fa-hand-point-up"></i> <!-- This is a Font Awesome icon -->
     </button>
-    
+
 </body>
 
 </html>

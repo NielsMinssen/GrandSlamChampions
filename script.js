@@ -232,15 +232,16 @@ document.addEventListener('DOMContentLoaded', function () {
     let wimbledonChart = bubbleChart();
     let australianOpenChart = bubbleChart();
     let usOpenChart = bubbleChart();
-    let IndianWellsMasters = bubbleChart();
-    let MiamiOpen = bubbleChart();
-    let MonteCarloMasters = bubbleChart();
-    let MadridOpen = bubbleChart();
-    let ItalianOpen = bubbleChart();
-    let CanadianOpen = bubbleChart();
-    let CincinatiMasters = bubbleChart();
-    let ShangaiMasters = bubbleChart();
-    let ParisMasters = bubbleChart();
+    let IndianWellsMastersChart = bubbleChart();
+    let MiamiOpenChart = bubbleChart();
+    let MonteCarloMastersChart = bubbleChart();
+    let MadridOpenChart = bubbleChart();
+    let ItalianOpenChart = bubbleChart();
+    let CanadianOpenChart = bubbleChart();
+    let CincinatiMastersChart = bubbleChart();
+    let ShangaiMastersChart = bubbleChart();
+    let ParisMastersChart = bubbleChart();
+    let ATPFinalsChart = bubbleChart();
 
     let allData;
     d3.csv('data/tennis/scrap_results_aggregated.csv').then(data => {
@@ -279,32 +280,34 @@ document.addEventListener('DOMContentLoaded', function () {
                 usOpenChart('#chart', allData, 'US Open');
                 break;
             case 'Indian Wells Masters':
-                usOpenChart('#chart', allData, 'Indian Wells Masters');
+                IndianWellsMastersChart('#chart', allData, 'Indian Wells Masters');
                 break;
             case 'Miami Open':
-                usOpenChart('#chart', allData, 'Miami Open');
+                MiamiOpenChart('#chart', allData, 'Miami Open');
                 break;
             case 'Monte-Carlo Masters':
-                usOpenChart('#chart', allData, 'Monte-Carlo Masters');
+                MonteCarloMastersChart('#chart', allData, 'Monte-Carlo Masters');
                 break;
             case 'Madrid Open':
-                usOpenChart('#chart', allData, 'Madrid Open');
+                MadridOpenChart('#chart', allData, 'Madrid Open');
                 break;
             case 'Italian Open':
-                usOpenChart('#chart', allData, 'Italian Open');
+                ItalianOpenChart('#chart', allData, 'Italian Open');
                 break;
             case 'Canadian Open':
-                usOpenChart('#chart', allData, 'Canadian Open');
+                CanadianOpenChart('#chart', allData, 'Canadian Open');
                 break;
             case 'Cincinnati Masters':
-                usOpenChart('#chart', allData, 'Cincinnati Masters');
+                CincinatiMastersChart('#chart', allData, 'Cincinnati Masters');
                 break;
             case 'Shanghai Masters':
-                usOpenChart('#chart', allData, 'Shanghai Masters');
+                ShangaiMastersChart('#chart', allData, 'Shanghai Masters');
                 break;
             case 'Paris Masters':
-                usOpenChart('#chart', allData, 'Paris Masters');
+                ParisMastersChart('#chart', allData, 'Paris Masters');
                 break;
+            case 'ATP Finals':
+                ATPFinalsChart('#chart', allData, 'ATP Finals')
         }
     }
 
