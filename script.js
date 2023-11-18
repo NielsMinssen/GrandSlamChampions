@@ -145,13 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const imageName = d.WINNER.replace(/ /g, "_");
                     const imageUrl = `data/images/atp/${imageName}.png`;
 
-                    // Check if the image file exists before setting the URL
-                    if (imageExists(imageUrl)) {
                         return imageUrl;
-                    } else {
-                        // Provide a default image
-                        return 'data/images/atp/Default.png'; // Adjust URL encoding if needed
-                    }
                 })
                 .on('mouseover', showDetails)
                 .on('mouseout', hideDetails);
@@ -332,14 +326,6 @@ function applyFilters() {
 $('#yearFilter').on('change', applyFilters);
 $('#winnerFilter').on('change', applyFilters);
 
-
-
-    function imageExists(url) {
-        const http = new XMLHttpRequest();
-        http.open('HEAD', url, false);
-        http.send();
-        return http.status !== 404;
-    }
 
     // Add a tooltip element
     d3.select("body").append("div")
