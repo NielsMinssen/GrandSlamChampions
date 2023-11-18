@@ -38,7 +38,7 @@ body {
     background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
     transition: left 0.3s;
     z-index: 1000;
-    padding-top: 15px;
+    padding-top: 50px;
   }
   
   /* Style for the close button */
@@ -80,6 +80,47 @@ body {
     margin-top: 10px; /* Add some space before the heading */
     border-top: 1px solid #eaeaea; /* Add a separator */
   }
+
+  .menu-heading-heading {
+    font-weight: bolder;
+    color: #000;
+    padding: 10px;
+    margin-top: 10px; /* Add some space before the heading */
+    font-size:x-large;
+  }
+
+
+  #menu .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+#menu .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Assurez-vous que les éléments de menu sont positionnés relativement */
+#menu .menu-heading {
+    position: relative;
+    cursor: pointer;
+}
+
+/* Style pour les liens dans les sous-menus */
+#menu .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+#menu .dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
 
   
 .chart {
@@ -371,6 +412,7 @@ h1 {
             width: 90%;
             font-size: 50px;
             line-height: 100px;
+            padding-top: 10%;
         }
 
         .closebtn{
@@ -381,5 +423,9 @@ h1 {
         #scrollToTopBtn{
             width: 150px;
             height: 150px;
+        }
+
+        .menu-heading-heading {
+            font-size: 80px;
         }
 }
