@@ -34,6 +34,7 @@ tournament_mapping = {
     '422': ('Masters 1000', 'Cincinnati Masters'),
     '5014': ('Masters 1000', 'Shanghai Masters'),
     '352': ('Masters 1000', 'Paris Masters'),
+    '605': ('ATP Finals', 'ATP Finals')
 }
 
 # Directory to save player images
