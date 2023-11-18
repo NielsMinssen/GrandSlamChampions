@@ -6,7 +6,13 @@ body {
     background-size: cover;
     transition: background-image 0.5s ease-in-out;
 
+    
 }
+#yearFilter, #winnerFilter {
+    width: 200px;
+    height: 150px;
+}
+
 .menu-container {
     display: flex; /* Aligns the icon and text vertically */
     left: 0px;

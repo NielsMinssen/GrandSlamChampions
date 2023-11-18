@@ -243,10 +243,95 @@ document.addEventListener('DOMContentLoaded', function () {
     let ParisMastersChart = bubbleChart();
     let ATPFinalsChart = bubbleChart();
 
-    let allData;
+    let uniqueYears, uniqueWinners,filteredData;
+
     d3.csv('data/tennis/scrap_results_aggregated.csv').then(data => {
-        allData = data; // Store the data
+        allData = data.map(d => {
+            // Parse the YEARS_WON string into an array of numbers
+            d.YEARS_WON = JSON.parse(d.YEARS_WON).map(Number);
+            return d;
+        });
+    
+        // Flatten the array of years and then get unique values
+        uniqueYears = [...new Set(allData.flatMap(d => d.YEARS_WON))].sort((a, b) => a - b);
+        uniqueWinners = [...new Set(allData.map(d => d.WINNER))].sort();
+    
+        populateFilterMenus(uniqueYears, 'yearFilter');
+        populateFilterMenus(uniqueWinners, 'winnerFilter');
+    
+        filteredData = allData; // Initialize filteredData with all data
     });
+
+    // This function now needs to handle multiple selected options
+function getSelectedOptions(sel) {
+    const opts = [];
+    for (let i = 0; i < sel.options.length; i++) {
+        const opt = sel.options[i];
+        if (opt.selected) {
+            opts.push(opt.value);
+        }
+    }
+    return opts;
+}
+
+$(document).ready(function() {
+    $('#yearFilter').select2({
+        placeholder: "Select Years",
+        allowClear: true
+    });
+    $('#winnerFilter').select2({
+        placeholder: "Select Winners",
+        allowClear: true
+    });
+});
+
+
+    function populateFilterMenus(options, elementId) {
+        const select = document.getElementById(elementId);
+        options.forEach(option => {
+            const optionElement = document.createElement('option');
+            optionElement.value = option;
+            optionElement.textContent = option;
+            select.appendChild(optionElement);
+        });
+    }
+    
+ 
+// Call this function whenever a filter changes.
+function applyFilters() {
+    // Get the selected years and winners from the filters.
+    const yearsSelected = getSelectedOptions(document.getElementById('yearFilter')).map(Number);
+    const winnersSelected = getSelectedOptions(document.getElementById('winnerFilter'));
+
+    d3.csv('data/tennis/scrap_results_aggregated.csv').then(data => {
+        allData = data.map(d => {
+            // Parse the YEARS_WON string into an array of numbers
+            d.YEARS_WON = JSON.parse(d.YEARS_WON).map(Number);
+            return d;
+        });
+    });
+
+    // Filter the data based on the selected years and winners.
+    filteredData = allData.filter(d =>
+        (yearsSelected.length === 0 || yearsSelected.some(year => d.YEARS_WON.includes(year))) &&
+        (winnersSelected.length === 0 || winnersSelected.includes(d.WINNER))
+    );
+
+    // Adjust the YEARS_WON array and NBWINS for the filtered data.
+    filteredData.forEach(d => {
+        d.YEARS_WON = d.YEARS_WON.filter(year => yearsSelected.includes(year));
+        d.NBWINS = d.YEARS_WON.length;
+    });
+
+    updateChart(tournament);
+
+}
+
+
+// Event listeners for the filter dropdowns.
+$('#yearFilter').on('change', applyFilters);
+$('#winnerFilter').on('change', applyFilters);
+
 
 
     function imageExists(url) {
@@ -268,46 +353,46 @@ document.addEventListener('DOMContentLoaded', function () {
         // You can switch between different datasets or views here
         switch (tournament) {
             case 'French Open':
-                frenchOpenChart('#chart', allData, 'French Open');
+                frenchOpenChart('#chart', filteredData, 'French Open');
                 break;
             case 'Wimbledon':
-                wimbledonChart('#chart', allData, 'Wimbledon');
+                wimbledonChart('#chart', filteredData, 'Wimbledon');
                 break;
             case 'Australian Open':
-                australianOpenChart('#chart', allData, 'Australian Open');
+                australianOpenChart('#chart', filteredData, 'Australian Open');
                 break;
             case 'US Open':
-                usOpenChart('#chart', allData, 'US Open');
+                usOpenChart('#chart', filteredData, 'US Open');
                 break;
             case 'Indian Wells Masters':
-                IndianWellsMastersChart('#chart', allData, 'Indian Wells Masters');
+                IndianWellsMastersChart('#chart', filteredData, 'Indian Wells Masters');
                 break;
             case 'Miami Open':
-                MiamiOpenChart('#chart', allData, 'Miami Open');
+                MiamiOpenChart('#chart', filteredData, 'Miami Open');
                 break;
             case 'Monte-Carlo Masters':
-                MonteCarloMastersChart('#chart', allData, 'Monte-Carlo Masters');
+                MonteCarloMastersChart('#chart', filteredData, 'Monte-Carlo Masters');
                 break;
             case 'Madrid Open':
-                MadridOpenChart('#chart', allData, 'Madrid Open');
+                MadridOpenChart('#chart', filteredData, 'Madrid Open');
                 break;
             case 'Italian Open':
-                ItalianOpenChart('#chart', allData, 'Italian Open');
+                ItalianOpenChart('#chart', filteredData, 'Italian Open');
                 break;
             case 'Canadian Open':
-                CanadianOpenChart('#chart', allData, 'Canadian Open');
+                CanadianOpenChart('#chart', filteredData, 'Canadian Open');
                 break;
             case 'Cincinnati Masters':
-                CincinatiMastersChart('#chart', allData, 'Cincinnati Masters');
+                CincinatiMastersChart('#chart', filteredData, 'Cincinnati Masters');
                 break;
             case 'Shanghai Masters':
-                ShangaiMastersChart('#chart', allData, 'Shanghai Masters');
+                ShangaiMastersChart('#chart', filteredData, 'Shanghai Masters');
                 break;
             case 'Paris Masters':
-                ParisMastersChart('#chart', allData, 'Paris Masters');
+                ParisMastersChart('#chart', filteredData, 'Paris Masters');
                 break;
             case 'ATP Finals':
-                ATPFinalsChart('#chart', allData, 'ATP Finals')
+                ATPFinalsChart('#chart', filteredData, 'ATP Finals')
         }
     }
 
@@ -336,7 +421,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .onStepEnter(response => {
             startSpinner();
             // Get the tournament attribute of the current step
-            const tournament = response.element.getAttribute('data-tournament');
+            window.tournament = response.element.getAttribute('data-tournament');
             const newBackgroundImage = response.element.getAttribute('data-background');
 
             if (tournament == 'French Open' && response.direction === 'down') {
