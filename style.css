@@ -379,29 +379,29 @@ h1 {
 
         .menu-container {
             display: flex;
-            left: 0px;
-            margin: 10px;
+            right: 15px;
             cursor: pointer;
-            width: 40%;
+            width: 20%;
+            height: 10%;
           }
           
           
           .menu-label {
             display: flex;
-            font-size: 60px; /* Adjust as needed */
-            color: #333; /* Adjust as needed */
+            font-size: 40px;
+            color: #fff; /* Adjust as needed */
             align-items: center;
-            width: 40%;
-            
+            width: 50%;
           }
         .menu-icon {
             display: flex;
-            width: 60%;
-            height: 10vh;
-            background-image: url('./data/images/backgrounds/menu-icon.png'); /* Path to your menu icon image */
-            background-size: cover;
-            align-items: center;
-          }
+            height: auto; /* Change to auto for proportional height */
+            background-image: url('./data/images/backgrounds/menu-icon.png');
+            background-size: contain; /* Changed from cover to contain */
+            background-repeat: no-repeat; /* Added to prevent the image from repeating */
+            background-position: center; /* Added to center the background image */
+            width: 50%;
+        }
 
         .header{
             display: flex;
@@ -432,5 +432,13 @@ h1 {
 
         .menu-heading-heading {
             font-size: 80px;
+        }
+        #yearFilter, #winnerFilter {
+            width: 100%; /* Make dropdowns full width on small screens */
+            height: auto; /* Set height to auto for better touch targets */
+            font-size: 16px; /* Increase font size for better readability */
+            -webkit-appearance: none; /* Disable native OS dropdown styling */
+            appearance: none; /* Disable native OS dropdown styling */
+            padding: 10px; /* Add some padding inside the dropdown */
         }
 }
