@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     var menu = document.getElementById('menu');
-    menu.style.left = '-100%';
+    menu.style.right = '+100%';
 
     // This function toggles the menu's visibility
     window.toggleMenu = function () {
         var menu = document.getElementById('menu');
-        menu.style.left = (menu.style.left === '0px' || menu.style.left === '') ? '-100%' : '0px';
+        menu.style.right = (menu.style.right === '0px' || menu.style.right === '') ? '+100%' : '0px';
     }
 
     // Function to scroll to the tournament section
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     ${d.AGE}<br>
                     ${d.HEIGHT}<br>
                     Nombre de victoire(s): ${d.NBWINS}<br>
-                    Année(s) de vivtoire(s) ${d.YEARS_WON}
+                    Année(s) de victoire(s): <span style="display: inline-block; word-wrap: break-word; max-width: ${tooltipWidth}px;">${d.YEARS_WON.join(', ')}</span>
                 </div>
             `)
                 .style("right", "30px") // Position 10px from the right edge of the screen
@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     
         // Flatten the array of years and then get unique values
-        uniqueYears = [...new Set(allData.flatMap(d => d.YEARS_WON))].sort((a, b) => a - b);
+        uniqueYears = [...new Set(allData.flatMap(d => d.YEARS_WON))].sort((a, b) => b - a);
         uniqueWinners = [...new Set(allData.map(d => d.WINNER))].sort();
     
         populateFilterMenus(uniqueYears, 'yearFilter');

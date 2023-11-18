@@ -15,15 +15,18 @@ body {
 
 .menu-container {
     display: flex; /* Aligns the icon and text vertically */
-    left: 0px;
+    right: 0px;
     margin: 10px;
     cursor: pointer;
+    top: 10px;
+    position: fixed;
+    z-index: 1000;
   }
   
   
   .menu-label {
     font-size: 30px; /* Adjust as needed */
-    color: #333; /* Adjust as needed */
+    color: #fff; /* Adjust as needed */
     /* Add any other styles you need for the text */
   }
 .menu-icon {
@@ -38,7 +41,7 @@ body {
   #menu {
     position: fixed;
     top: 0;
-    left: -100%; /* Start off the screen */
+    right: +100%; /* Start off the screen */
     width: 250px;
     height: 100%;
     background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
@@ -50,10 +53,10 @@ body {
   /* Style for the close button */
   .closebtn {
     position: absolute;
-    top: 0;
-    right: 25px;
+    top: 5px;
+    right: 5px;
     font-size: 36px;
-    margin-left: 50px;
+    margin-right: 20px;
     cursor: pointer;
   }
   
@@ -219,11 +222,7 @@ body {
 
 .chart-section {
     flex: 2;
-    padding: 20px;
     /* Additional styling */
-}
-
-.chart-section {
     position: sticky;
     top: 5vh;
     /* Adjust this value based on your layout, header size, etc. */
