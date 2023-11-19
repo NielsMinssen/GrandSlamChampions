@@ -237,7 +237,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let ParisMastersChart = bubbleChart();
     let ATPFinalsChart = bubbleChart();
 
-    let uniqueYears, uniqueWinners,filteredData;
+    let filteredData;
+    let allData;
 
     d3.csv('data/tennis/scrap_results_aggregated.csv').then(data => {
         allData = data.map(d => {
@@ -245,10 +246,11 @@ document.addEventListener('DOMContentLoaded', function () {
             d.YEARS_WON = JSON.parse(d.YEARS_WON).map(Number);
             return d;
         });
+
     
         // Flatten the array of years and then get unique values
-        uniqueYears = [...new Set(allData.flatMap(d => d.YEARS_WON))].sort((a, b) => b - a);
-        uniqueWinners = [...new Set(allData.map(d => d.WINNER))].sort();
+       const uniqueYears = [...new Set(allData.flatMap(d => d.YEARS_WON))].sort((a, b) => b - a);
+        const uniqueWinners = [...new Set(allData.map(d => d.WINNER))].sort();
     
         populateFilterMenus(uniqueYears, 'yearFilter');
         populateFilterMenus(uniqueWinners, 'winnerFilter');
@@ -290,51 +292,9 @@ $(document).ready(function() {
         });
     }
     
- 
-// Call this function whenever a filter changes.
-function applyFilters() {
-    // Get the selected years and winners from the filters.
-    const yearsSelected = getSelectedOptions(document.getElementById('yearFilter')).map(Number);
-    const winnersSelected = getSelectedOptions(document.getElementById('winnerFilter'));
-
-    d3.csv('data/tennis/scrap_results_aggregated.csv').then(data => {
-        allData = data.map(d => {
-            // Parse the YEARS_WON string into an array of numbers
-            d.YEARS_WON = JSON.parse(d.YEARS_WON).map(Number);
-            return d;
-        });
-    });
-
-    // Filter the data based on the selected years and winners.
-    filteredData = allData.filter(d =>
-        (yearsSelected.length === 0 || yearsSelected.some(year => d.YEARS_WON.includes(year))) &&
-        (winnersSelected.length === 0 || winnersSelected.includes(d.WINNER))
-    );
-
-    // Adjust the YEARS_WON array and NBWINS for the filtered data.
-    filteredData.forEach(d => {
-        d.YEARS_WON = d.YEARS_WON.filter(year => yearsSelected.includes(year));
-        d.NBWINS = d.YEARS_WON.length;
-    });
-
-    updateChart(tournament);
-
-}
-
-
-// Event listeners for the filter dropdowns.
-$('#yearFilter').on('change', applyFilters);
-$('#winnerFilter').on('change', applyFilters);
-
-
-    // Add a tooltip element
-    d3.select("body").append("div")
-        .attr("id", "tooltip")
-        .style("opacity", 0);
-
-
 
     async function updateChart(tournament) {
+
         // Logic to update the chart based on the tournament
         // You can switch between different datasets or views here
         switch (tournament) {
@@ -381,6 +341,43 @@ $('#winnerFilter').on('change', applyFilters);
                 ATPFinalsChart('#chart', filteredData, 'ATP Finals')
         }
     }
+ 
+// Call this function whenever a filter changes.
+function applyFilters() {
+    // Get the current state of selections from the filters.
+    let yearsSelected = getSelectedOptions(document.getElementById('yearFilter')).map(Number);
+    let winnersSelected = getSelectedOptions(document.getElementById('winnerFilter'));
+
+    // Filter the data based on the selected years and winners.
+    filteredData = allData.filter(d =>
+        (yearsSelected.length === 0 || d.YEARS_WON.some(year => yearsSelected.includes(year))) &&
+        (winnersSelected.length === 0 || winnersSelected.includes(d.WINNER))
+    );
+
+    // Recalculate NBWINS based on the currently selected years.
+    // This assumes YEARS_WON contains all the years a player has won, not just the filtered years.
+    filteredData.forEach(d => {
+        d.NBWINS = d.YEARS_WON.filter(year => yearsSelected.length === 0 || yearsSelected.includes(year)).length;
+    });
+
+    updateChart(tournament);
+
+}
+
+
+// Event listeners for the filter dropdowns.
+$('#yearFilter').on('change', applyFilters);
+$('#winnerFilter').on('change', applyFilters);
+
+
+    // Add a tooltip element
+    d3.select("body").append("div")
+        .attr("id", "tooltip")
+        .style("opacity", 0);
+
+
+
+
 
     // Fonction pour démarrer le spinner
     function startSpinner() {
