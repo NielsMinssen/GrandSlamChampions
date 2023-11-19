@@ -349,16 +349,22 @@ function applyFilters() {
     let winnersSelected = getSelectedOptions(document.getElementById('winnerFilter'));
 
     // Filter the data based on the selected years and winners.
-    filteredData = allData.filter(d =>
-        (yearsSelected.length === 0 || d.YEARS_WON.some(year => yearsSelected.includes(year))) &&
-        (winnersSelected.length === 0 || winnersSelected.includes(d.WINNER))
-    );
+    filteredData = allData.map(d => {
+        // Create a new object to avoid mutating the original data.
+        const newData = { ...d, YEARS_WON: [], NBWINS: 0 };
 
-    // Recalculate NBWINS based on the currently selected years.
-    // This assumes YEARS_WON contains all the years a player has won, not just the filtered years.
-    filteredData.forEach(d => {
-        d.NBWINS = d.YEARS_WON.filter(year => yearsSelected.length === 0 || yearsSelected.includes(year)).length;
-    });
+        // Filter the YEARS_WON for the current selection.
+        newData.YEARS_WON = d.YEARS_WON.filter(year => yearsSelected.length === 0 || yearsSelected.includes(year));
+        // Recalculate the number of wins.
+        newData.NBWINS = newData.YEARS_WON.length;
+
+        return newData;
+    })
+    // Now filter by winners.
+    .filter(d => 
+        (winnersSelected.length === 0 || winnersSelected.includes(d.WINNER)) &&
+        (d.NBWINS > 0)
+    );
 
     updateChart(tournament);
 
