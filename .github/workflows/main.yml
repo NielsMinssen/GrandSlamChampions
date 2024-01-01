@@ -47,5 +47,5 @@ jobs:
           git add -A
           git commit -m 'Automated script update' --allow-empty
           # Use the PAT stored in your repository secrets for the HTTPS authentication
-          git push --set-upstream https://${{ secrets.GRANDSLAMS }}@github.com/NielsMinssen/GrandSlamChampions.git HEAD:main
+          git push --set-upstream https://${{ secrets.GRANDSLAMS }}@github.com/NielsMinssen/GrandSlamChampions.git HEAD:main --force
       
