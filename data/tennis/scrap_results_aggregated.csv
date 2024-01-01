@@ -1,4 +1,5 @@
 ,WINNER,TOURNAMENT,YEARS_WON,NATIONALITY,NBWINS,AGE,HEIGHT
+<<<<<<< HEAD
 0,Andrey Rublev,Monte-Carlo Masters,[2023],,1,,
 1,Borna Coric,Cincinnati Masters,[2022],,1,,
 2,Carlos Alcaraz,Indian Wells Masters,[2023],,1,,
@@ -24,3 +25,5 @@
 22,Rafael Nadal,French Open,[2022],,1,,
 23,Stefanos Tsitsipas,Monte-Carlo Masters,[2022],,1,,
 24,Taylor Fritz,Indian Wells Masters,[2022],,1,,
+=======
+>>>>>>> 344b553c51be5a4551a98a8477bcd8a60974fdeb
