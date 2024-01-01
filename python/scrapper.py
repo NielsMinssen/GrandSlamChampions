@@ -110,7 +110,7 @@ with open('./data/tennis/scrap_results.csv', mode='w', newline='') as file:
     year_to_process = today.year + 1
 
         # Loop through the years and tournament codes
-    for year in range(2022, year_to_process):
+    for year in range(1950, year_to_process):
         print("Processing year:", year)
         for tournament_code, (tournament_type, tournament_name) in tournament_mapping.items():
             winner_name, winner_profile_url = scrape_winner_and_profile(year, tournament_code)
