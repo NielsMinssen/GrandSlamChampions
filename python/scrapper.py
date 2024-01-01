@@ -60,18 +60,20 @@ def download_image(image_url, filename):
 
 # Function to scrape tournament winners and return the player's profile URL
 def scrape_winner_and_profile(year, tournament_code):
-    params = {'year': year, 'tournamentId': tournament_code}
+    params = {'year': year, 'tournament': tournament_code}
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
     }
     response = session.get(base_url, headers=headers, params=params)
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, 'html.parser')
-        winner_div = soup.find('div', class_='tourney-detail-winner')
+        winner_div = soup.find('dl', class_='winner')
         if winner_div:
             winner_name = winner_div.find('a').get_text(strip=True)
             winner_profile_url = player_base_url + winner_div.find('a')['href']
             return winner_name, winner_profile_url
+    else:
+        print(response)
     return None, None
 
 # Function to scrape player information
@@ -83,9 +85,7 @@ def scrape_player_info(player_url):
     response = session.get(player_url, headers=headers)
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, 'html.parser')
-        nationality_div = soup.find('div', class_='player-flag-code')
-        age_div = soup.find('div', class_='table-big-value')
-        height_div = soup.find('span', class_='table-height-cm-wrapper')
+        nationality_div = soup.find('span', class_='flag')
 
          # Check for image in different possible classes
         image_classes = ['player-profile-hero-image', 'small-headshot']
@@ -97,9 +97,7 @@ def scrape_player_info(player_url):
                 break  # If an image is found, no need to check further
 
         nationality = nationality_div.get_text(strip=True) if nationality_div else 'Not available'
-        age = age_div.get_text(strip=True) if age_div else 'Not available'
-        height = height_div.get_text(strip=True) if height_div else 'Not available'
-        player_info = {'nationality': nationality, 'age': age, 'height': height, 'image_url_relative': image_url_relative}
+        player_info = {'nationality': nationality, 'image_url_relative': image_url_relative}
         return player_info
     return {}
 
@@ -112,7 +110,7 @@ with open('./data/tennis/scrap_results.csv', mode='w', newline='') as file:
     year_to_process = today.year + 1
 
         # Loop through the years and tournament codes
-    for year in range(1950, year_to_process):
+    for year in range(2022, year_to_process):
         print("Processing year:", year)
         for tournament_code, (tournament_type, tournament_name) in tournament_mapping.items():
             winner_name, winner_profile_url = scrape_winner_and_profile(year, tournament_code)
@@ -131,6 +129,4 @@ with open('./data/tennis/scrap_results.csv', mode='w', newline='') as file:
                     tournament_name,
                     winner_name,
                     player_info.get('nationality', ''),
-                    player_info.get('age', ''),
-                    player_info.get('height', '')
                 ])
