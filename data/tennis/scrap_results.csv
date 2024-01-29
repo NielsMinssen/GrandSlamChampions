@@ -300,6 +300,8 @@ YEAR,TOURNAMENT_TYPE,TOURNAMENT,WINNER,NATIONALITY,AGE,HEIGHT
 1990,Masters 1000,Paris Masters,Stefan Edberg,
 1990,ATP Finals,ATP Finals,Andre Agassi,
 1991,Grand Slam,Australian Open,Boris Becker,
+1991,Grand Slam,French Open,Jim Courier,
+1991,Grand Slam,Wimbledon,Michael Stich,
 1991,Grand Slam,US Open,Stefan Edberg,
 1991,Masters 1000,Indian Wells Masters,Jim Courier,
 1991,Masters 1000,Miami Open,Jim Courier,
@@ -709,3 +711,4 @@ YEAR,TOURNAMENT_TYPE,TOURNAMENT,WINNER,NATIONALITY,AGE,HEIGHT
 2023,Masters 1000,Shanghai Masters,Hubert Hurkacz,
 2023,Masters 1000,Paris Masters,Novak Djokovic,
 2023,ATP Finals,ATP Finals,Novak Djokovic,
+2024,Grand Slam,Australian Open,Jannik Sinner,
