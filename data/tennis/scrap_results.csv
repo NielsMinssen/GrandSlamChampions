@@ -63,8 +63,6 @@ YEAR,TOURNAMENT_TYPE,TOURNAMENT,WINNER,NATIONALITY,AGE,HEIGHT
 1965,Grand Slam,French Open,Fred Stolle,
 1965,Grand Slam,Wimbledon,Roy Emerson,
 1965,Grand Slam,US Open,Manuel Santana,
-1966,Grand Slam,Australian Open,Roy Emerson,
-1966,Grand Slam,French Open,Tony Roche,
 1966,Grand Slam,Wimbledon,Manuel Santana,
 1966,Grand Slam,US Open,Fred Stolle,
 1967,Grand Slam,Australian Open,Roy Emerson,
@@ -713,3 +711,4 @@ YEAR,TOURNAMENT_TYPE,TOURNAMENT,WINNER,NATIONALITY,AGE,HEIGHT
 2023,ATP Finals,ATP Finals,Novak Djokovic,
 2024,Grand Slam,Australian Open,Jannik Sinner,
 2024,Masters 1000,Indian Wells Masters,Carlos Alcaraz,
+2024,Masters 1000,Miami Open,Jannik Sinner,
