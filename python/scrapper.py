@@ -88,7 +88,7 @@ def scrape_player_info(player_url):
         nationality_div = soup.find('span', class_='flag')
 
          # Check for image in different possible classes
-        image_classes = ['player-profile-hero-image', 'small-headshot']
+        image_classes = ['player-profile-hero-image', 'small-headshot','player_image']
         for img_class in image_classes:
             image_div = soup.find('div', class_=img_class)
             if image_div and image_div.find('img'):
