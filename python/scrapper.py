@@ -1,9 +1,23 @@
+
 import requests
 from bs4 import BeautifulSoup
 import csv
 import datetime
 import os
 from urllib.parse import urljoin
+
+# --- NEW: Read existing winners from aggregated results ---
+def get_existing_winners(aggregated_csv_path):
+    existing_winners = set()
+    if os.path.exists(aggregated_csv_path):
+        with open(aggregated_csv_path, newline='', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                winner = row.get('WINNER')
+                if winner:
+                    existing_winners.add(winner.strip())
+    return existing_winners
+
 
 # Base URL for ATP Tour results archive with query parameters
 base_url = "https://www.atptour.com/en/scores/results-archive"
@@ -101,23 +115,30 @@ def scrape_player_info(player_url):
         return player_info
     return {}
 
+# --- NEW: Use existing winners to skip unnecessary scraping ---
+aggregated_csv_path = './data/tennis/scrap_results_aggregated.csv'
+existing_winners = get_existing_winners(aggregated_csv_path)
+
 # Open a CSV file to write results
-with open('./data/tennis/scrap_results.csv', mode='w', newline='') as file:
+with open('./data/tennis/scrap_results.csv', mode='w', newline='', encoding='utf-8') as file:
     writer = csv.writer(file)
     writer.writerow(['YEAR', 'TOURNAMENT_TYPE', 'TOURNAMENT', 'WINNER', 'NATIONALITY', 'AGE', 'HEIGHT'])
 
     today = datetime.date.today()
     year_to_process = today.year + 1
 
-        # Loop through the years and tournament codes
+    # Loop through the years and tournament codes
     for year in range(1950, year_to_process):
         print("Processing year:", year)
         for tournament_code, (tournament_type, tournament_name) in tournament_mapping.items():
             winner_name, winner_profile_url = scrape_winner_and_profile(year, tournament_code)
             if winner_name:
+                if winner_name.strip() in existing_winners:
+                    print(f"Skipping {winner_name} (already in aggregated results)")
+                    continue
                 player_info = scrape_player_info(winner_profile_url) if winner_profile_url else {}
                 # Assuming the player's image is part of the player_info
-                image_url = urljoin(winner_profile_url,player_info.get('image_url_relative'))
+                image_url = urljoin(winner_profile_url, player_info.get('image_url_relative'))
                 print(image_url)
                 if image_url:
                     # Create a filename from the winner's name
