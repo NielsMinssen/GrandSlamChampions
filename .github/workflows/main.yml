@@ -4,6 +4,7 @@ on:
   schedule:
     # Runs at 00:00 every Sunday
     - cron: '28 16 * * 1'
+  workflow_dispatch:
 
 jobs:
   run-script:
