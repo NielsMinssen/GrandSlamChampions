@@ -7,11 +7,13 @@ folder_path = './data/images/atp'
 
 # Loop through the files in the specified directory
 for filename in os.listdir(folder_path):
-    # Create the full path to the file
     file_path = os.path.join(folder_path, filename)
-
-    # Open the input image as numpy array, convert to RGB
-    img = Image.open(file_path).convert("RGB")
+    try:
+        # Open the input image as numpy array, convert to RGB
+        img = Image.open(file_path).convert("RGB")
+    except Exception as e:
+        print(f"Warning: Could not open {filename} as image. Skipping. Error: {e}")
+        continue
     npImage = np.array(img)
     h, w = img.size
 
