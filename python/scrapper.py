@@ -93,7 +93,7 @@ def scrape_player_info(player_url):
             image_div = soup.find('div', class_=img_class)
             if image_div and image_div.find('img'):
                 image_url_relative = image_div.find('img')['src']
-                print(image_url_relative)
+                print(image_url_relative) 
                 break  # If an image is found, no need to check further
 
         nationality = nationality_div.get_text(strip=True) if nationality_div else 'Not available'
