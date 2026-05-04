@@ -662,7 +662,6 @@ YEAR,TOURNAMENT_TYPE,TOURNAMENT,WINNER,NATIONALITY,AGE,HEIGHT
 2018,Masters 1000,Shanghai Masters,Novak Djokovic,
 2018,Masters 1000,Paris Masters,Karen Khachanov,
 2018,ATP Finals,ATP Finals,Alexander Zverev,
-2019,Grand Slam,Australian Open,Novak Djokovic,
 2019,Grand Slam,French Open,Rafael Nadal,
 2019,Grand Slam,Wimbledon,Novak Djokovic,
 2019,Grand Slam,US Open,Rafael Nadal,
@@ -755,3 +754,4 @@ YEAR,TOURNAMENT_TYPE,TOURNAMENT,WINNER,NATIONALITY,AGE,HEIGHT
 2026,Masters 1000,Indian Wells Masters,Jannik Sinner,
 2026,Masters 1000,Miami Open,Jannik Sinner,
 2026,Masters 1000,Monte-Carlo Masters,Jannik Sinner,
+2026,Masters 1000,Madrid Open,Jannik Sinner,
