@@ -1,262 +1,330 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="utf-8">
-    <title>Grand Slams winners</title>
-    <script src='https://d3js.org/d3.v5.min.js'></script>
-    <script src="https://unpkg.com/scrollama"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"
-        integrity="sha512-jEnuDt6jfecCjthQAJ+ed0MTVA++5ZKmlUcmDGBv2vUI/REn6FuIdixLNnQT+vKusE2hhTk2is3cFvv5wA+Sgg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="script.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Les Légendes du Tennis</title>
+    <meta name="description" content="Scrollytelling des vainqueurs des tournois du Grand Chelem, des Masters 1000 et des ATP Finals depuis 1950.">
+    <meta name="theme-color" content="#07090f">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <!-- Include jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Link to Select2 CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-    <!-- Link to Select2 JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/scrollama@3.2.0/build/scrollama.min.js" defer></script>
+    <script src="script.js" defer></script>
 </head>
 
 <body>
-    <div class="first-step" data-background="./data/images/backgrounds/Grand_Slams.png">
-        <div class="menu-container" onclick="window.toggleMenu()"">
-            <div class=" menu-icon"></div>
-            <span class="menu-label">Menu</span>
-        </div>
-    <div id="menu">
-        <span class="closebtn" onclick="window.toggleMenu()">&times;</span>
-        <ul>
-            <ul class="menu-heading-heading">Tournois</ul>
-            <li class="menu-heading dropdown">Grand Chelems
-                <ul class="dropdown-content">
-                    <li><a href="javascript:void(0)" class="grand-slam"
-                            onclick="window.scrollToTournament('French Open')">Rolland Garros</a></li>
-                    <li><a href="javascript:void(0)" class="grand-slam"
-                            onclick="window.scrollToTournament('Wimbledon')">Wimbledon</a></li>
-                    <li><a href="javascript:void(0)" class="grand-slam"
-                            onclick="window.scrollToTournament('Australian Open')">Australian Open</a></li>
-                    <li><a href="javascript:void(0)" class="grand-slam"
-                            onclick="window.scrollToTournament('US Open')">US Open</a></li>
-                </ul>
-            </li>
-            <li class="menu-heading dropdown">Masters 1000
-                <ul class="dropdown-content">
-                    <li><a href="javascript:void(0)" class="masters"
-                            onclick="window.scrollToTournament('Indian Wells Masters')">Indian Wells Masters</a></li>
-                    <li><a href="javascript:void(0)" class="masters"
-                            onclick="window.scrollToTournament('Miami Open')">Miami
-                            Open</a></li>
-                    <li><a href="javascript:void(0)" class="masters"
-                            onclick="window.scrollToTournament('Monte-Carlo Masters')">Monte-Carlo Masters</a></li>
-                    <li><a href="javascript:void(0)" class="masters"
-                            onclick="window.scrollToTournament('Madrid Open')">Madrid
-                            Open</a></li>
-                    <li><a href="javascript:void(0)" class="masters"
-                            onclick="window.scrollToTournament('Italian Open')">Italian
-                            Open</a></li>
-                    <li><a href="javascript:void(0)" class="masters"
-                            onclick="window.scrollToTournament('Canadian Open')">Canadian Open</a></li>
-                    <li><a href="javascript:void(0)" class="masters"
-                            onclick="window.scrollToTournament('Cincinnati Masters')">Cincinnati Masters</a></li>
-                    <li><a href="javascript:void(0)" class="masters"
-                            onclick="window.scrollToTournament('Shanghai Masters')">Shanghai Masters</a></li>
-                    <li><a href="javascript:void(0)" class="masters"
-                            onclick="window.scrollToTournament('Paris Masters')">Paris
-                            Masters</a></li>
-                </ul>
-            <li class="menu-heading dropdown"> Masters
-                <ul class="dropdown-content">
-                    <li><a href="javascript:void(0)" class="masters"
-                            onclick="window.scrollToTournament('ATP Finals')">ATP
-                            Finals</a></li>
-                </ul>
-            </li>
-        </li>
-        <ul class="menu-heading-heading">Filtres</ul>
-        <li class="menu-heading dropdown"> Années
-            <select id="yearFilter" multiple="multiple">
-                <!-- Year options will go here -->
-            </select>
-        </li>
-        <li class="menu-heading dropdown"> Joueurs
-            <select id="winnerFilter" multiple="multiple">
-                <!-- Winner options will go here -->
-            </select>
-        </li>
-    </ul>
+    <div class="backdrop" aria-hidden="true">
+        <div class="backdrop__layer is-active"></div>
+        <div class="backdrop__layer"></div>
+        <div class="backdrop__tint"></div>
     </div>
 
-
-
-    <div class="header">
-        <div class="header-text">
-            <h1>Scrollytelling tournois du Grand chelem / Masters 1000</h1>
-            <p> Ce site retrace l'histoire du tennis à travers de joueurs qui ont réussi l'exploit de gagner un<br>
-                tournoi du Grand Chelem ou un Masters 1000. Ces Tournois sont les plus prestigieux du monde du<br>
-                tennis et en gagner ne serait-ce qu'un seul vous permet de rentrer dans la légende.<br>
-            </p>
+    <header class="topbar">
+        <a class="brand" href="#top" aria-label="Retour en haut">
+            <span class="brand__ball" aria-hidden="true"></span>
+            <span class="brand__text">Légendes<span class="brand__dim"> du tennis</span></span>
+        </a>
+        <nav class="progress" aria-label="Chapitres"></nav>
+        <div class="topbar__actions">
+            <button class="chip chip--tracked" id="trackedChip" hidden>
+                <img alt="" class="chip__avatar">
+                <span class="chip__label"></span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+            <button class="icon-btn" id="openSearch" aria-label="Suivre un joueur" aria-controls="explore">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+            </button>
+            <button class="icon-btn" id="openEra" aria-label="Filtrer par époque" aria-controls="explore">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>
+                <span class="icon-btn__badge" id="eraBadge" hidden></span>
+            </button>
         </div>
-        <div class="box-arrow1">
+    </header>
+
+    <aside class="explore" id="explore" aria-label="Explorer" hidden>
+        <div class="explore__head">
+            <h2>Explorer</h2>
+            <button class="icon-btn" id="closeExplore" aria-label="Fermer">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+        </div>
+        <section class="explore__block">
+            <label class="explore__label" for="playerSearch">Suivre un joueur</label>
+            <p class="explore__hint">Sa bulle reste en lumière tout au long du récit.</p>
+            <div class="search">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+                <input id="playerSearch" type="search" list="playerList" placeholder="Nadal, Borg, Sinner…" autocomplete="off">
+                <datalist id="playerList"></datalist>
+            </div>
+        </section>
+        <section class="explore__block">
+            <span class="explore__label" id="eraLabel">Époque</span>
+            <p class="explore__hint">Les bulles se recomposent selon la période choisie.</p>
+            <div class="era-presets" role="group" aria-labelledby="eraLabel"></div>
+            <div class="range" aria-labelledby="eraLabel">
+                <div class="range__track"><div class="range__fill"></div></div>
+                <input type="range" id="eraMin" aria-label="Année de début">
+                <input type="range" id="eraMax" aria-label="Année de fin">
+            </div>
+            <div class="range__values"><span id="eraMinValue"></span><span id="eraMaxValue"></span></div>
+        </section>
+    </aside>
+
+    <main class="layout" id="top">
+        <div class="stage">
+            <div class="chart" id="chart" role="img" aria-label="Bulles des champions"></div>
+            <p class="chart__empty" id="chartEmpty" hidden>Aucun vainqueur sur cette période.</p>
+            <p class="chart__hint">Survolez une bulle · glissez-la</p>
+        </div>
+
+        <div class="story">
+            <section class="step step--hero" data-step="hero">
+                <div class="hero">
+                    <p class="eyebrow">Grand Chelem · Masters 1000 · ATP Finals</p>
+                    <h1 class="hero__title">Les légendes<br><span>du tennis</span></h1>
+                    <p class="hero__lead">Chaque bulle est un champion. Plus elle est grosse, plus il a soulevé de trophées.
+                        Faites défiler pour traverser les plus grands tournois du monde, de 1950 à aujourd'hui.</p>
+                    <dl class="hero__stats">
+                        <div><dt>Champions</dt><dd data-count="champions">0</dd></div>
+                        <div><dt>Titres</dt><dd data-count="titles">0</dd></div>
+                        <div><dt>Saisons</dt><dd data-count="seasons">0</dd></div>
+                    </dl>
+                    <a class="scroll-cue" href="#overview">
+                        <span>Entrer sur le court</span>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+                    </a>
+                </div>
+            </section>
+
+            <section class="step" id="overview" data-step="overview">
+                <article class="card">
+                    <p class="eyebrow">Tous tournois confondus</p>
+                    <h2 class="card__title">Le panthéon</h2>
+                    <p>Les quatre tournois du Grand Chelem, les neuf Masters 1000 et les ATP Finals réunis : la taille de
+                        chaque bulle correspond au nombre total de titres. Trois géants écrasent tout le reste.</p>
+                    <div class="stats" data-stats></div>
+                    <p class="card__note" data-note hidden></p>
+                </article>
+            </section>
+
+            <section class="step step--chapter" data-step="category" data-category="Grand Slam">
+                <article class="card card--chapter">
+                    <p class="eyebrow">Chapitre 1</p>
+                    <h2 class="card__title">Le Grand Chelem</h2>
+                    <p>Quatre tournois, deux semaines chacun, cinq sets pour gagner. Ce sont les titres qui font entrer un
+                        joueur dans l'histoire.</p>
+                    <div class="stats" data-stats></div>
+                    <p class="card__note" data-note hidden></p>
+                </article>
+            </section>
+
+            <section class="step" data-step="tournament" data-tournament="Australian Open">
+                <article class="card">
+                    <h2 class="card__title">Open d'Australie</h2>
+                    <p>L'Open d'Australie ouvre chaque saison du Grand Chelem à Melbourne, durant les deux dernières semaines de
+                        janvier. Connu pour ses courts en dur bleus, l'emblématique Rod Laver Arena et ses fans enthousiastes, il
+                        offre souvent aux joueurs le défi de jouer sous une chaleur extrême, avec des matchs parmi les plus
+                        exigeants physiquement du circuit.</p>
+                    <div class="stats" data-stats></div>
+                    <p class="card__note" data-note hidden></p>
+                </article>
+            </section>
+
+            <section class="step" data-step="tournament" data-tournament="French Open">
+                <article class="card">
+                    <h2 class="card__title">Roland-Garros</h2>
+                    <p>Seul tournoi du Grand Chelem disputé sur terre battue, Roland-Garros se tient à Paris entre fin mai et
+                        début juin. La lenteur de la surface en fait le tournoi le plus exigeant physiquement au monde : il
+                        réclame un mélange unique d'endurance, de patience et de jeu stratégique.</p>
+                    <div class="stats" data-stats></div>
+                    <p class="card__note" data-note hidden></p>
+                </article>
+            </section>
+
+            <section class="step" data-step="tournament" data-tournament="Wimbledon">
+                <article class="card">
+                    <h2 class="card__title">Wimbledon</h2>
+                    <p>Le plus ancien et peut-être le plus prestigieux tournoi du monde, organisé au All England Club de Londres
+                        depuis 1877. Code vestimentaire tout en blanc, fraises à la crème, aucune publicité autour des courts :
+                        c'est le dernier Majeur joué sur gazon, la surface originelle du jeu, qui récompense le service-volée.</p>
+                    <div class="stats" data-stats></div>
+                    <p class="card__note" data-note hidden></p>
+                </article>
+            </section>
+
+            <section class="step" data-step="tournament" data-tournament="US Open">
+                <article class="card">
+                    <h2 class="card__title">US Open</h2>
+                    <p>Point d'orgue de la saison du Grand Chelem, l'US Open se joue fin août et début septembre à New York, sur
+                        les courts en dur du USTA Billie Jean King National Tennis Center et son géant, l'Arthur Ashe Stadium.
+                        Ambiance électrique, sessions de nuit, et un tournoi pionnier : le tie-break dans chaque set y est né.</p>
+                    <div class="stats" data-stats></div>
+                    <p class="card__note" data-note hidden></p>
+                </article>
+            </section>
+
+            <section class="step step--chapter" data-step="category" data-category="Masters 1000">
+                <article class="card card--chapter">
+                    <p class="eyebrow">Chapitre 2</p>
+                    <h2 class="card__title">Les Masters 1000</h2>
+                    <p>Neuf tournois, de Indian Wells à Paris, qui rythment toute la saison. Moins de sets, plus de matchs
+                        enchaînés : il faut être régulier toute l'année pour y briller.</p>
+                    <div class="stats" data-stats></div>
+                    <p class="card__note" data-note hidden></p>
+                </article>
+            </section>
+
+            <section class="step" data-step="tournament" data-tournament="Indian Wells Masters">
+                <article class="card">
+                    <h2 class="card__title">Indian Wells</h2>
+                    <p>Niché dans la vallée de Coachella, le BNP Paribas Open est souvent surnommé le « cinquième Grand Chelem ».
+                        Les meilleurs joueurs du monde s'y affrontent sous le soleil de Californie, sur des courts en dur
+                        promettant des matchs palpitants.</p>
+                    <div class="stats" data-stats></div>
+                    <p class="card__note" data-note hidden></p>
+                </article>
+            </section>
+
+            <section class="step" data-step="tournament" data-tournament="Miami Open">
+                <article class="card">
+                    <h2 class="card__title">Miami Open</h2>
+                    <p>Le Miami Open mêle tennis de haut niveau et culture vibrante de la Floride. Sur ses courts en dur, la
+                        détermination rencontre la finesse, avec la ligne d'horizon de Miami en toile de fond.</p>
+                    <div class="stats" data-stats></div>
+                    <p class="card__note" data-note hidden></p>
+                </article>
+            </section>
+
+            <section class="step" data-step="tournament" data-tournament="Monte-Carlo Masters">
+                <article class="card">
+                    <h2 class="card__title">Monte-Carlo</h2>
+                    <p>Le Monte-Carlo Masters ouvre la saison sur terre battue avec élégance. Dans le cadre somptueux de Monaco,
+                        face à la Méditerranée, les joueurs glissent et se battent sur la terre rouge.</p>
+                    <div class="stats" data-stats></div>
+                    <p class="card__note" data-note hidden></p>
+                </article>
+            </section>
+
+            <section class="step" data-step="tournament" data-tournament="Madrid Open">
+                <article class="card">
+                    <h2 class="card__title">Madrid</h2>
+                    <p>Le Madrid Open allie le charme de la capitale espagnole à la modernité de sa Caja Mágica. En altitude, la
+                        balle vole plus vite sur la terre battue : puissance et stratégie s'y rencontrent devant un public
+                        passionné.</p>
+                    <div class="stats" data-stats></div>
+                    <p class="card__note" data-note hidden></p>
+                </article>
+            </section>
+
+            <section class="step" data-step="tournament" data-tournament="Italian Open">
+                <article class="card">
+                    <h2 class="card__title">Rome</h2>
+                    <p>Au Foro Italico, dans la Ville éternelle, l'histoire s'écrit sur terre battue. Parmi les échos des
+                        gladiateurs antiques, les guerriers du tennis d'aujourd'hui luttent pour la suprématie, portés par les
+                        tifosi.</p>
+                    <div class="stats" data-stats></div>
+                    <p class="card__note" data-note hidden></p>
+                </article>
+            </section>
+
+            <section class="step" data-step="tournament" data-tournament="Canadian Open">
+                <article class="card">
+                    <h2 class="card__title">Canada</h2>
+                    <p>Alternant entre Montréal et Toronto, l'Open du Canada lance la tournée américaine sur dur. Une célébration
+                        du tennis de premier plan et de l'hospitalité canadienne, en plein cœur de l'été.</p>
+                    <div class="stats" data-stats></div>
+                    <p class="card__note" data-note hidden></p>
+                </article>
+            </section>
+
+            <section class="step" data-step="tournament" data-tournament="Cincinnati Masters">
+                <article class="card">
+                    <h2 class="card__title">Cincinnati</h2>
+                    <p>Le Cincinnati Masters est un monument de la tradition tennistique américaine. Ses courts en dur rapides
+                        favorisent les audacieux, et à mesure que la chaleur estivale monte, la dernière répétition avant
+                        l'US Open devient inoubliable.</p>
+                    <div class="stats" data-stats></div>
+                    <p class="card__note" data-note hidden></p>
+                </article>
+            </section>
+
+            <section class="step" data-step="tournament" data-tournament="Shanghai Masters">
+                <article class="card">
+                    <h2 class="card__title">Shanghai</h2>
+                    <p>Joyau de la tournée asiatique, le Shanghai Masters se dispute au Qizhong Forest Sports City Arena, dont le
+                        toit évoque une fleur de magnolia épanouie. Le plus jeune des Masters 1000, et déjà des matchs
+                        explosifs.</p>
+                    <div class="stats" data-stats></div>
+                    <p class="card__note" data-note hidden></p>
+                </article>
+            </section>
+
+            <section class="step" data-step="tournament" data-tournament="Paris Masters">
+                <article class="card">
+                    <h2 class="card__title">Paris</h2>
+                    <p>Dernier Masters 1000 de la saison, joué en salle, le Rolex Paris Masters est le théâtre des ultimes
+                        batailles pour les places aux ATP Finals. L'atmosphère électrique de l'arène parisienne rend chaque
+                        match grandiose.</p>
+                    <div class="stats" data-stats></div>
+                    <p class="card__note" data-note hidden></p>
+                </article>
+            </section>
+
+            <section class="step" data-step="tournament" data-tournament="ATP Finals">
+                <article class="card">
+                    <p class="eyebrow eyebrow--chapter">Chapitre 3</p>
+                    <h2 class="card__title">ATP Finals</h2>
+                    <p>Les ATP Finals couronnent la saison en réunissant les huit meilleurs joueurs de l'année. Jeux de lumière,
+                        ambiance indoor électrique, aucun match facile : seuls les meilleurs s'y imposent, dans une célébration
+                        du tennis dans sa forme la plus pure et la plus intense.</p>
+                    <div class="stats" data-stats></div>
+                    <p class="card__note" data-note hidden></p>
+                </article>
+            </section>
+
+            <section class="step step--finale" data-step="big3">
+                <article class="card card--finale">
+                    <p class="eyebrow">Épilogue</p>
+                    <h2 class="card__title">Le Big 3</h2>
+                    <p>Pendant deux décennies, trois hommes se sont partagé presque tout. Voici leur héritage, tournoi par
+                        tournoi.</p>
+                    <div class="big3" data-big3></div>
+                    <p class="card__note" data-note hidden></p>
+                </article>
+                <footer class="credits">
+                    <p>Données : <a href="https://www.atptour.com/en/scores/results-archive" target="_blank" rel="noopener">ATP Tour</a>,
+                        mises à jour chaque semaine.</p>
+                    <p>&copy; <span id="year">2023</span> Codé avec &hearts; par
+                        <a href="https://nielsminssen.github.io" target="_blank" rel="noopener">Niels Minssen</a></p>
+                    <a class="scroll-cue scroll-cue--up" href="#top">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>
+                        <span>Revenir au début</span>
+                    </a>
+                </footer>
+            </section>
+        </div>
+    </main>
+
+    <aside class="player-card" id="playerCard" aria-live="polite" hidden>
+        <button class="icon-btn player-card__close" id="closePlayer" aria-label="Fermer la fiche">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+        <div class="player-card__head">
+            <img class="player-card__photo" alt="">
             <div>
-                <h2>Scrollez pour plonger dans l'histoire du tennis !</h2>
+                <h3 class="player-card__name"></h3>
+                <p class="player-card__sub"></p>
             </div>
-            <div id="down-arrow1"></div>
         </div>
-    </div>
-    </div>
-    <div class="container">
-        <div class="text-section">
-            <!-- Scrolling text content here -->
-            <div class="step" data-tournament="French Open"
-                data-background="./data/images/backgrounds/Rolland_Garros.png">
-                <h2>Roland-Garros</h2>
-                Le tournoi de Roland-Garros, qui se tient au Stade Roland
-                Garros à Paris, en France, est le seul tournoi du Grand Chelem disputé sur terre battue. Généralement
-                programmé entre fin mai et début juin, il est considéré comme le tournoi de tennis le plus exigeant
-                physiquement au monde en raison de la lenteur de la surface de jeu, ce qui nécessite une combinaison
-                unique d'endurance et de
-                jeu stratégique. L'événement met l'accent sur la persévérance et la capacité à jouer sur la terre battue
-                caractéristique.
-            </div>
-
-            <div class="box-arrow2">
-                <div id="down-arrow2"></div>
-            </div>
-
-            <div class="step" data-tournament="Wimbledon" data-background="./data/images/backgrounds/Wimbledon.png">
-                <h2>Wimbledon</h2>
-                Wimbledon est le plus ancien et peut-être le plus prestigieux
-                tournoi de tennis au monde. Organisé au All England Club à Londres depuis 1877, il se déroule sur deux
-                semaines à la fin juin et au début juillet. Connu pour son code vestimentaire strict pour les
-                compétiteurs, la tradition de manger des fraises à la crème, et l'absence de publicité des sponsors
-                autour des courts, Wimbledon est le seul tournoi majeur encore joué sur gazon, la surface originale du
-                jeu, qui favorise les joueurs de service-volée.
-            </div>
-
-
-            <div class="step" data-tournament="US Open" data-background="./data/images/backgrounds/U.S._Open.png">
-                <h2>US Open</h2>
-                L'US Open se tient chaque année à la fin août et au début
-                septembre à New York, aux États-Unis. Comme point culminant moderne des tournois du Grand Chelem, il se
-                joue sur des courts en dur acrylique au USTA Billie Jean King National Tennis Center, comprenant
-                l'Arthur Ashe Stadium, l'un des plus grands stades de tennis au monde. L'US Open est connu pour son
-                atmosphère énergique, ses sessions nocturnes et a été précurseur dans l'introduction de changements dans
-                le jeu, tels que les tie-breaks dans chaque set des matchs en simple.
-            </div>
-
-            <div class="step" data-tournament="Australian Open"
-                data-background="./data/images/backgrounds/Australian_Open.png">
-                <h2>Open d'Australie</h2>
-                L'Open d'Australie se déroule chaque année à Melbourne, en Australie, durant les deux dernières semaines
-                de janvier. Il lance le calendrier des tournois du Grand Chelem. Connu pour ses courts en dur, ses
-                températures élevées et ses fans enthousiastes, le tournoi a une histoire marquée par des matchs parmi
-                les plus exigeants physiquement dans le monde du tennis. L'Open d'Australie est célèbre pour ses courts
-                bleus et l'emblématique Rod Laver Arena, offrant souvent aux joueurs le défi de jouer sous une chaleur
-                extrême.
-            </div>
-
-            <div class="step" data-tournament="Indian Wells Masters"
-                data-background="./data/images/backgrounds/Indian_Wells_Masters.png">
-                <h2>Indian Wells Masters</h2>
-                Niché dans la pittoresque vallée de Coachella, l'Indian Wells Masters, également connu sous le nom de
-                BNP Paribas Open, est souvent surnommé le 'cinquième Grand Chelem'. Ce tournoi prestigieux attire les
-                meilleurs talents tennistiques mondiaux qui s'affrontent sous le soleil radieux de Californie sur des
-                courts en dur promettant des matchs palpitants.
-            </div>
-
-            <div class="step" data-tournament="Miami Open" data-background="./data/images/backgrounds/Miami_Open.png">
-                <h2>Miami Open</h2>
-                "Le Miami Open présente une fusion dynamique de tennis de haut niveau et de la culture vibrante de
-                Miami. Avec ses courts en dur comme scène, le tournoi met en vedette une compétition acharnée où la
-                détermination rencontre la finesse, le tout sur fond de l'impressionnante ligne d'horizon de Miami.
-            </div>
-
-            <div class="step" data-tournament="Monte-Carlo Masters"
-                data-background="./data/images/backgrounds/Monte-Carlos_Masters.png">
-                <h2>Monte-Carlo Masters</h2>
-                Le Monte-Carlo Masters marque le début de la saison sur terre battue avec élégance. Situé dans le cadre
-                somptueux de Monaco, les joueurs glissent et se battent sur la terre rouge, offrant un spectacle
-                d'athlétisme dans l'un des cadres les plus luxueux du sport.
-            </div>
-
-            <div class="step" data-tournament="Madrid Open" data-background="./data/images/backgrounds/Madrid_Open.png">
-                <h2>Madrid Open</h2>
-                Le Madrid Open allie le charme historique de la capitale espagnole à la modernité de ses courts en terre
-                battue joués en altitude. C'est un lieu où puissance et stratégie se rencontrent, créant des matchs
-                envoûtants qui résonnent avec la passion des fans de tennis espagnols.
-            </div>
-
-            <div class="step" data-tournament="Italian Open"
-                data-background="./data/images/backgrounds/Italian_Open.png">
-                <h2>Italian Open</h2>
-                L'Italian Open, qui se déroule dans la ville éternelle de Rome, est un tournoi où l'histoire s'écrit sur
-                terre battue. Parmi les échos des gladiateurs antiques, les guerriers du tennis d'aujourd'hui luttent
-                pour la suprématie, entourés par la culture riche et les fans passionnés de l'Italie.
-            </div>
-
-            <div class="step" data-tournament="Canadian Open"
-                data-background="./data/images/backgrounds/Canadian_Open.png">
-                <h2>Canadian Open</h2>
-                Alternant entre Montréal et Toronto, le Canadian Open, également connu sous le nom de Rogers Cup,
-                présente un défi sur courts en dur au cœur du Canada. C'est une célébration du tennis de premier ordre
-                et de l'hospitalité canadienne, les fans appréciant chaque service volée.
-            </div>
-
-            <div class="step" data-tournament="Cincinnati Masters"
-                data-background="./data/images/backgrounds/Cincinnati_Masters.png">
-                <h2>Cincinnati Masters</h2>
-                Le Cincinnati Masters est un témoignage de la tradition tennistique américaine. Les courts en dur
-                rapides favorisent les audacieux et, à mesure que la chaleur estivale s'intensifie, la compétition
-                devient inoubliable.
-            </div>
-
-            <div class="step" data-tournament="Shanghai Masters"
-                data-background="./data/images/backgrounds/Shangai_Masters.png">
-                <h2>Shanghai Masters</h2>
-                Le Shanghai Masters est le joyau couronné de l'ATP Tour en Asie. Le Qizhong Forest Sports City Arena,
-                avec son magnifique toit ressemblant à une fleur de magnolia épanouie, la fleur nationale de la Chine,
-                accueille des matchs de tennis explosifs sur des courts en dur ultra-modernes.
-            </div>
-
-            <div class="step" data-tournament="Paris Masters"
-                data-background="./data/images/backgrounds/Paris_Masters.png">
-                <h2>Paris Masters</h2>
-                En tant que point culminant intérieur de la saison ATP, le Paris Masters est le théâtre des dernières
-                batailles pour les classements de fin d'année. L'atmosphère électrique de l'AccorHotels Arena reflète
-                l'enchantement propre à la ville, rendant chaque match grandiose.
-            </div>
-
-            <div class="step" data-tournament="ATP Finals" data-background="./data/images/backgrounds/ATP_Finals.png">
-                <h2>ATP Finals</h2>
-                Les ATP Finals couronnent la fin de la saison de tennis en rassemblant l'élite des joueurs du circuit
-                professionnel. Ce tournoi prestigieux, qui se déroule dans une ambiance intérieure électrique, est le
-                théâtre d'affrontements époustouflants où seuls les meilleurs s'affirment. Avec des jeux de lumière
-                dynamiques et une atmosphère de haute technologie, les ATP Finals ne sont pas seulement un test
-                d'habileté et de persévérance, mais aussi une célébration du tennis dans sa forme la plus pure et la
-                plus intense.
-            </div>
-
-
-            <p>&copy; 2023 Coded with &hearts; by <a href="https://nielsminssen.github.io" target="_blank"
-                    rel="noopener noreferrer" aria-label="Visit Your Name's website">Niels Minssen</a></p>
-
-            <!-- more steps -->
-        </div>
-        <div class="chart-section">
-            <!-- Charts will be displayed here -->
-            <div id="loader" class="loader" style="display: none;"></div>
-            <div id="chart"></div>
-        </div>
-    </div>
-    <button id="scrollToTopBtn" title="Scroll to top">
-        <i class="fas fa-hand-point-up"></i> <!-- This is a Font Awesome icon -->
-    </button>
-
+        <div class="player-card__figures"></div>
+        <svg class="timeline" aria-hidden="true"></svg>
+        <ul class="player-card__chips"></ul>
+        <button class="btn" id="trackPlayer">Suivre ce joueur</button>
+    </aside>
 </body>
 
 </html>
